@@ -1,0 +1,164 @@
+---
+import { getCollection } from 'astro:content';
+import Navbar from '@astro-v6/ui/components/Navbar.astro';
+import ThemeToggle from '@astro-v6/ui/components/ThemeToggle.svelte';
+import BaseLayout from '@astro-v6/ui/layouts/BaseLayout.astro';
+import PageSEO from '@astro-v6/ui/seo/PageSEO.astro';
+import '@/styles/app.css';
+
+const posts = (await getCollection('blog'))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/blog', label: 'Blog' },
+];
+---
+
+<BaseLayout title="Astro v6 Blog" description="A blog template built with Astro v6, MDX and Content Collections." lang="en">
+  <PageSEO
+    slot="head"
+    title="Astro v6 Blog"
+    description="A blog template built with Astro v6, MDX and Content Collections."
+  />
+
+  <Navbar slot="header" siteName="Astro v6 Blog" links={links}>
+    <ThemeToggle client:load />
+  </Navbar>
+
+  <section class="hero">
+    <h1>Astro v6 Blog</h1>
+    <p>A lean blog template with MDX, Content Collections and RSS feed.</p>
+  </section>
+
+  <section class="posts">
+    <h2>Latest Posts</h2>
+    <ul class="post-list" role="list">
+      {posts.map((post) => (
+        <li>
+          <a href={`/blog/${post.id}`} class="post-card">
+            <time datetime={post.data.date.toISOString()}>
+              {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </time>
+            <h3>{post.data.title}</h3>
+            <p>{post.data.description}</p>
+            {post.data.tags.length > 0 && (
+              <div class="tags">
+                {post.data.tags.map((tag) => (
+                  <span class="tag">{tag}</span>
+                ))}
+              </div>
+            )}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <footer slot="footer" class="site-footer">
+    <p>
+      &copy; {new Date().getFullYear()} Astro v6 Blog.
+      <a href="/rss.xml">RSS Feed</a>
+    </p>
+  </footer>
+</BaseLayout>
+
+<style>
+  .hero {
+    text-align: center;
+    padding: var(--space-2xl) var(--space-lg) var(--space-xl);
+    max-width: 48rem;
+    margin: 0 auto;
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    margin-bottom: var(--space-sm);
+  }
+
+  .hero p {
+    color: var(--color-text-secondary);
+    font-size: 1.125rem;
+  }
+
+  .posts {
+    max-width: 48rem;
+    margin: 0 auto;
+    padding: 0 var(--space-lg) var(--space-2xl);
+  }
+
+  .posts h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: var(--space-lg);
+  }
+
+  .post-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    list-style: none;
+    padding: 0;
+  }
+
+  .post-card {
+    display: block;
+    padding: var(--space-xl);
+    border: 1px solid var(--color-border);
+    border-radius: var(--card-radius);
+    background: var(--color-surface);
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow var(--transition-fast), border-color var(--transition-fast);
+  }
+
+  .post-card:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-accent);
+    color: inherit;
+  }
+
+  .post-card time {
+    display: block;
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-xs);
+  }
+
+  .post-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: var(--space-xs);
+  }
+
+  .post-card p {
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+
+  .tags {
+    display: flex;
+    gap: var(--space-xs);
+    margin-top: var(--space-sm);
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    padding: 0.125rem 0.5rem;
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-full);
+    color: var(--color-text-secondary);
+  }
+
+  .site-footer {
+    text-align: center;
+    padding: var(--space-xl) var(--space-lg);
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+  }
+</style>

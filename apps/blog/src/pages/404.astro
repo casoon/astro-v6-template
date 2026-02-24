@@ -1,0 +1,36 @@
+---
+import BaseLayout from '@astro-v6/ui/layouts/BaseLayout.astro';
+import '@/styles/app.css';
+---
+
+<BaseLayout title="404 - Page Not Found" lang="en">
+  <section class="not-found">
+    <h1>404</h1>
+    <p>This page does not exist.</p>
+    <a href="/" class="back-link">&larr; Back to home</a>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    text-align: center;
+    padding: var(--space-3xl) var(--space-lg);
+  }
+
+  .not-found h1 {
+    font-size: 6rem;
+    font-weight: 900;
+    color: var(--color-text-secondary);
+    line-height: 1;
+  }
+
+  .not-found p {
+    font-size: 1.25rem;
+    color: var(--color-text-secondary);
+    margin: var(--space-md) 0 var(--space-xl);
+  }
+
+  .back-link {
+    font-weight: 600;
+  }
+</style>

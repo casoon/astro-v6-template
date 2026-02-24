@@ -1,0 +1,188 @@
+---
+import { getCollection, render } from 'astro:content';
+import Navbar from '@astro-v6/ui/components/Navbar.astro';
+import ThemeToggle from '@astro-v6/ui/components/ThemeToggle.svelte';
+import BaseLayout from '@astro-v6/ui/layouts/BaseLayout.astro';
+import PageSEO from '@astro-v6/ui/seo/PageSEO.astro';
+import '@/styles/app.css';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/blog', label: 'Blog' },
+];
+---
+
+<BaseLayout title={post.data.title} description={post.data.description}>
+  <PageSEO
+    slot="head"
+    title={`${post.data.title} - Astro v6 Blog`}
+    description={post.data.description}
+    ogType="article"
+  />
+
+  <Navbar slot="header" siteName="Astro v6 Blog" links={links}>
+    <ThemeToggle client:load />
+  </Navbar>
+
+  <article class="blog-post">
+    <header class="post-header">
+      <time datetime={post.data.date.toISOString()}>
+        {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+      </time>
+      <h1>{post.data.title}</h1>
+      <p class="post-author">by {post.data.author}</p>
+      {post.data.tags.length > 0 && (
+        <div class="tags">
+          {post.data.tags.map((tag) => (
+            <span class="tag">{tag}</span>
+          ))}
+        </div>
+      )}
+    </header>
+
+    <div class="post-content prose">
+      <Content />
+    </div>
+
+    <footer class="post-footer">
+      <a href="/">&larr; Back to overview</a>
+    </footer>
+  </article>
+
+  <footer slot="footer" class="site-footer">
+    <p>&copy; {new Date().getFullYear()} Astro v6 Blog.</p>
+  </footer>
+</BaseLayout>
+
+<style>
+  .blog-post {
+    max-width: 48rem;
+    margin: 0 auto;
+    padding: var(--space-2xl) var(--space-lg);
+  }
+
+  .post-header {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .post-header time {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-sm);
+  }
+
+  .post-header h1 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    margin-bottom: var(--space-sm);
+  }
+
+  .post-author {
+    color: var(--color-text-secondary);
+    font-size: 0.9375rem;
+  }
+
+  .tags {
+    display: flex;
+    gap: var(--space-xs);
+    margin-top: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    padding: 0.125rem 0.5rem;
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-full);
+    color: var(--color-text-secondary);
+  }
+
+  .post-content {
+    line-height: 1.8;
+  }
+
+  .post-content :global(h2) {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: var(--space-2xl);
+    margin-bottom: var(--space-md);
+  }
+
+  .post-content :global(h3) {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .post-content :global(p) {
+    margin-bottom: var(--space-md);
+  }
+
+  .post-content :global(ul),
+  .post-content :global(ol) {
+    padding-left: var(--space-lg);
+    margin-bottom: var(--space-md);
+  }
+
+  .post-content :global(li) {
+    margin-bottom: var(--space-xs);
+  }
+
+  .post-content :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    padding: 0.125em 0.375em;
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-sm);
+  }
+
+  .post-content :global(pre) {
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    background: var(--color-neutral-900) !important;
+    overflow-x: auto;
+    margin-bottom: var(--space-md);
+  }
+
+  .post-content :global(pre code) {
+    padding: 0;
+    background: transparent;
+  }
+
+  .post-content :global(strong) {
+    font-weight: 700;
+  }
+
+  .post-footer {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .post-footer a {
+    font-weight: 600;
+  }
+
+  .site-footer {
+    text-align: center;
+    padding: var(--space-xl) var(--space-lg);
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+  }
+</style>

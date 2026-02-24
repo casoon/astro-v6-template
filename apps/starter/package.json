@@ -1,0 +1,28 @@
+{
+  "name": "@astro-v6/starter",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "type-check": "astro check",
+    "clean": "rm -rf dist .astro"
+  },
+  "dependencies": {
+    "astro": "catalog:",
+    "@astrojs/svelte": "catalog:",
+    "@astrojs/sitemap": "catalog:",
+    "svelte": "catalog:",
+    "tailwindcss": "catalog:",
+    "@tailwindcss/vite": "catalog:",
+    "@fontsource/inter": "catalog:",
+    "@astro-v6/styles": "workspace:*",
+    "@astro-v6/ui": "workspace:*",
+    "@astro-v6/utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@astrojs/check": "catalog:",
+    "typescript": "catalog:"
+  }
+}

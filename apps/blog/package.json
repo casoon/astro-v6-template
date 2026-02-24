@@ -1,0 +1,33 @@
+{
+  "name": "@astro-v6/blog",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev --port 4322",
+    "build": "astro build",
+    "preview": "astro preview",
+    "type-check": "astro check",
+    "clean": "rm -rf dist .astro"
+  },
+  "dependencies": {
+    "astro": "catalog:",
+    "@astrojs/mdx": "catalog:",
+    "@astrojs/svelte": "catalog:",
+    "@astrojs/sitemap": "catalog:",
+    "svelte": "catalog:",
+    "tailwindcss": "catalog:",
+    "@tailwindcss/vite": "catalog:",
+    "@tailwindcss/typography": "catalog:",
+    "@fontsource/inter": "catalog:",
+    "@fontsource/lora": "catalog:",
+    "@fontsource/fira-code": "catalog:",
+    "zod": "catalog:",
+    "@astro-v6/styles": "workspace:*",
+    "@astro-v6/ui": "workspace:*",
+    "@astro-v6/utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@astrojs/check": "catalog:",
+    "typescript": "catalog:"
+  }
+}

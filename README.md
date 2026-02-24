@@ -1,0 +1,153 @@
+# Astro v6 Template
+
+[![CI](https://github.com/casoon/astro-v6-template/actions/workflows/ci.yml/badge.svg)](https://github.com/casoon/astro-v6-template/actions/workflows/ci.yml)
+
+A lean, production-ready **Astro v6** monorepo template with Tailwind v4, Svelte 5 and Biome.
+
+> **Status:** Astro v6 is currently in beta. This template will be updated with the stable release.
+
+## Multi-Project Architecture
+
+This template uses **pnpm workspaces** with a shared `packages/` layer, making it an ideal foundation for running **multiple projects from a single repository**. Typical use cases:
+
+- **Main site** + **Blog** (included as `starter` and `blog`)
+- **Landing pages** for campaigns or product launches
+- **Online shop** storefront
+- **Documentation** site
+
+All projects share the same design tokens, UI components and utilities — ensuring a consistent look and feel while keeping each app independently deployable. Adding a new project is as simple as creating a new folder under `apps/` and importing from `packages/`.
+
+## Predecessor
+
+This template succeeds [astro-v5-template](https://github.com/casoon/astro-v5-template). It was rebuilt from scratch with a focus on simplicity and the Astro v6 feature set.
+
+### What Changed from v5?
+
+| Area | v5 | v6 |
+|---|---|---|
+| Apps | 3 (blank, base, demo) | 2 (starter, blog) |
+| Linting | Biome + ESLint + Prettier | Biome only |
+| Fonts | 16 packages | 3 (Inter, Lora, Fira Code) |
+| Styling | @casoon/atlas + Tailwind | Custom tokens + Tailwind v4 |
+| Node | >= 20 | >= 22.12.0 |
+| Zod | v3 | v4 |
+| Content | Legacy Collections | Loader API |
+| Dev server | Standard Vite | Vite Environment API |
+
+## Features
+
+- **Astro v6** — New dev server, Live Content Collections, CSP
+- **Tailwind v4** — CSS-first config, Vite plugin, OKLCH colors
+- **Svelte 5** — Runes API ($state, $derived) for reactive islands
+- **Biome** — Single tool for linting + formatting (replaces ESLint + Prettier)
+- **Zod v4** — Runtime validation for env, forms, API
+- **pnpm Workspaces** — Monorepo with catalog for centralized dependency management
+- **Dark Mode** — System preference + manual toggle
+- **WCAG 2.1 AA** — Accessibility as a core principle
+- **TypeScript Strict** — Fully typed throughout
+
+## Structure
+
+```
+astro-v6-template/
+├── apps/
+│   ├── starter/          # Landing page + contact form
+│   └── blog/             # Blog with MDX + RSS
+├── packages/
+│   ├── styles/           # Design tokens (CSS variables)
+│   ├── ui/               # Shared components
+│   └── utils/            # Shared utilities
+├── .github/workflows/    # CI pipeline
+├── biome.json            # Linting & formatting
+└── pnpm-workspace.yaml   # Workspace + catalog
+```
+
+## Prerequisites
+
+- **Node.js** >= 22.12.0
+- **pnpm** >= 9.0.0
+
+## Quick Start
+
+```bash
+# Clone the repository
+git clone https://github.com/casoon/astro-v6-template.git
+cd astro-v6-template
+
+# Install dependencies
+pnpm install
+
+# Start the starter app
+pnpm dev
+
+# Start the blog app
+pnpm dev:blog
+```
+
+## Available Scripts
+
+| Script | Description |
+|---|---|
+| `pnpm dev` | Start the starter app (port 4321) |
+| `pnpm dev:blog` | Start the blog app (port 4322) |
+| `pnpm build` | Build all apps |
+| `pnpm build:starter` | Build starter only |
+| `pnpm build:blog` | Build blog only |
+| `pnpm check` | Run Biome lint + format check |
+| `pnpm check:fix` | Biome auto-fix |
+| `pnpm format` | Format all files |
+| `pnpm type-check` | TypeScript check |
+| `pnpm clean` | Remove build artifacts + node_modules |
+
+## Apps
+
+### Starter
+
+Minimal landing page featuring:
+- Hero section with feature grid
+- Contact form with Zod validation
+- API route (`/api/contact`)
+- Dark mode toggle
+- SEO component with JSON-LD
+
+### Blog
+
+Blog template featuring:
+- MDX support
+- Content Collections (Loader API)
+- Automatic RSS feed (`/rss.xml`)
+- Tag display
+- Responsive post layout
+
+## Packages
+
+### `@astro-v6/styles`
+Design tokens as CSS variables with OKLCH colors. Includes light/dark mode, spacing, typography, shadows.
+
+### `@astro-v6/ui`
+Shared Astro/Svelte components:
+- `BaseLayout.astro` — HTML base structure with skip link
+- `Navbar.astro` — Responsive navigation
+- `PageSEO.astro` — Meta tags + Open Graph + JSON-LD
+- `ThemeToggle.svelte` — Dark mode toggle (Svelte 5 Runes)
+
+### `@astro-v6/utils`
+Shared utilities:
+- `env.ts` — Zod-based environment validation
+- `api.ts` — API response helpers + schemas
+- `cn.ts` — clsx + tailwind-merge utility
+
+## Astro v6 Highlights
+
+This template leverages the key features of Astro v6:
+
+- **Vite Environment API** — Dev server runs in the same runtime as production
+- **Content Collections Loader API** — `glob()` loader instead of legacy `type: 'content'`
+- **Zod v4** — `z.email()`, `z.url()` as top-level functions
+- **Node 22+** — Minimum requirement
+
+For planned features, see [ROADMAP.md](./ROADMAP.md).
+
+## License
+
+MIT

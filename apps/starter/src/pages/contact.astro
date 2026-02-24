@@ -1,0 +1,139 @@
+---
+import Navbar from '@astro-v6/ui/components/Navbar.astro';
+import ThemeToggle from '@astro-v6/ui/components/ThemeToggle.svelte';
+import BaseLayout from '@astro-v6/ui/layouts/BaseLayout.astro';
+import PageSEO from '@astro-v6/ui/seo/PageSEO.astro';
+import '@/styles/app.css';
+
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/contact', label: 'Contact' },
+];
+---
+
+<BaseLayout title="Contact" description="Contact form with Zod validation and API route." lang="en">
+  <PageSEO
+    slot="head"
+    title="Contact - Astro v6 Starter"
+    description="Contact form with Zod validation and API route."
+  />
+
+  <Navbar slot="header" siteName="Astro v6" links={links}>
+    <ThemeToggle client:load />
+  </Navbar>
+
+  <section class="contact">
+    <h1>Contact</h1>
+    <p>Example contact form with server-side Zod validation.</p>
+
+    <form class="contact-form" method="POST" action="/api/contact">
+      <div class="form-field">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required autocomplete="name" />
+      </div>
+
+      <div class="form-field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required autocomplete="email" />
+      </div>
+
+      <div class="form-field">
+        <label for="subject">Subject</label>
+        <input type="text" id="subject" name="subject" required />
+      </div>
+
+      <div class="form-field">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Send</button>
+    </form>
+  </section>
+
+  <footer slot="footer" class="site-footer">
+    <p>&copy; {new Date().getFullYear()} Astro v6 Starter.</p>
+  </footer>
+</BaseLayout>
+
+<style>
+  .contact {
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: var(--space-2xl) var(--space-lg);
+  }
+
+  .contact h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: var(--space-sm);
+  }
+
+  .contact > p {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-xl);
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .form-field label {
+    font-weight: 600;
+    font-size: 0.875rem;
+  }
+
+  .form-field input,
+  .form-field textarea {
+    padding: 0.625rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--input-radius);
+    background: var(--color-surface);
+    color: var(--color-text);
+    transition: border-color var(--transition-fast);
+  }
+
+  .form-field input:focus,
+  .form-field textarea:focus {
+    border-color: var(--color-accent);
+    outline: none;
+    box-shadow: 0 0 0 3px oklch(58% 0.18 220 / 0.15);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: var(--button-radius);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+  }
+
+  .btn-primary {
+    background: var(--color-accent);
+    color: var(--color-text-inverse);
+  }
+
+  .btn-primary:hover {
+    background: var(--color-accent-hover);
+  }
+
+  .site-footer {
+    text-align: center;
+    padding: var(--space-xl) var(--space-lg);
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+  }
+</style>
