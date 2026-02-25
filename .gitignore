@@ -41,3 +41,6 @@ apps/*/public/og/
 
 # Build metrics
 astro-speed-measure-report.*
+
+# Build info (generated at build time)
+**/build-info.json
