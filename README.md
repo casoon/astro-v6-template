@@ -14,6 +14,8 @@
 
 A lean, production-ready **Astro v6** monorepo template with Tailwind v4, Svelte 5 and Biome.
 
+**Live Demos:** [Starter](https://astrov6.casoon.dev) · [Blog](https://astrov6blog.casoon.dev)
+
 > **Status:** Astro v6 is currently in beta. This template will be updated with the stable release.
 
 ## Multi-Project Architecture

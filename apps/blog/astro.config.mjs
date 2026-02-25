@@ -7,7 +7,7 @@ import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://example.com',
+  site: 'https://astrov6blog.casoon.dev',
   adapter: cloudflare(),
 
   i18n: {

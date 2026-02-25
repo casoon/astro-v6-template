@@ -6,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://example.com',
+  site: 'https://astrov6.casoon.dev',
   adapter: cloudflare({
     sessionKVBindingName: 'SESSION',
   }),
