@@ -64,7 +64,7 @@ This template succeeds [astro-v5-template](https://github.com/casoon/astro-v5-te
 - **pnpm Workspaces** — Monorepo with catalog for centralized dependency management
 - **Dark Mode** — System preference + manual toggle
 - **SEO** — robots.txt, sitemap with i18n, canonical URLs, meta descriptions
-- **WCAG 2.1 AA** — Semantic HTML, ARIA attributes, link underlines, axe-core validation
+- **WCAG 2.1 AA** — Two-layer accessibility: axe-core runtime checks + static HTML audit
 - **TypeScript Strict** — Fully typed throughout
 
 ## Structure
@@ -234,6 +234,44 @@ export default defineConfig({
 ```
 
 Checks include missing `<title>`, meta descriptions, canonical URLs, Open Graph tags, duplicate `<h1>`, broken internal links, sitemap validation and basic WCAG heuristics. Supports `--strict` mode, exclusion patterns and JSON output.
+
+## Accessibility (WCAG 2.1 AA)
+
+This template enforces WCAG 2.1 Level AA compliance through two complementary layers:
+
+### Layer 1: Static HTML Audit (Build Time)
+
+[`astro-post-audit`](https://github.com/casoon/astro-post-audit) runs automatically after every build and checks the raw HTML output for:
+
+- Missing `alt` attributes on images
+- Empty links (`<a>` without text or aria-label)
+- Missing page landmarks and heading structure
+- Duplicate `<h1>` elements per page
+
+### Layer 2: Runtime Accessibility Testing (E2E)
+
+[axe-core](https://github.com/dequelabs/axe-core) via `@axe-core/playwright` validates the fully rendered pages in a real browser:
+
+- Color contrast ratios (>= 4.5:1)
+- ARIA roles and attributes
+- Keyboard navigation and focus management
+- Form label associations
+
+```bash
+# Run accessibility tests
+pnpm test:e2e           # all tests including a11y
+```
+
+Tests are located in `e2e/starter/a11y.spec.ts` and `e2e/blog/a11y.spec.ts`.
+
+### Built-in Accessibility Features
+
+- **Skip to content** link in `BaseLayout`
+- **Semantic HTML** — `<nav>`, `<main>`, `<article>`, `<section>` throughout
+- **ARIA attributes** — `aria-label`, `aria-current`, `role` where needed
+- **Link underlines** — Always visible, not just on hover
+- **Focus indicators** — Visible focus rings on all interactive elements
+- **Dark mode** — Respects `prefers-color-scheme`, OKLCH colors maintain contrast in both modes
 
 ## Astro v6 Highlights
 
