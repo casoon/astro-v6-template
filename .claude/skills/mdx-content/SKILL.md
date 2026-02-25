@@ -147,6 +147,39 @@ const greeting = 'Hello, Astro v6!';
 - Item three
 ```
 
+## MDX Fallstricke (remark-directive Konflikte)
+
+Das Projekt nutzt `remark-directive`, das Text-Directives im Format `:name` erkennt. Das führt zu unerwarteten Rendering-Problemen im Fließtext.
+
+### PROBLEM: Doppelpunkt gefolgt von Buchstabe/Zahl wird als Directive geparst
+
+Alles im Format `:wort` oder `:zahl` im Fließtext (NICHT in Code-Blöcken) kann von remark-directive als textDirective interpretiert und falsch gerendert werden.
+
+### Betroffene Patterns im Fließtext
+
+| Problematisch | Sicherer Ersatz |
+|---|---|
+| `1:1-Gespräch` | `1-zu-1-Gespräch` |
+| `4.5:1 Kontrast` | `4,5 zu 1 Kontrast` |
+| `16:9 Format` | `16-zu-9-Format` oder `16∶9` (Ratio-Zeichen U+2236) |
+| `2:3 Verhältnis` | `2-zu-3-Verhältnis` |
+| `Uhrzeit 10:00` | In Code-Span: `` `10:00` `` oder `10.00 Uhr` |
+
+### Sichere Kontexte (kein Escaping nötig)
+
+- **Code-Blöcke** (` ```lang ... ``` `): remark-directive parst keine Code-Blöcke
+- **Inline-Code** (`` `text` ``): Auch sicher
+- **HTML-Tags** (`<p>4.5:1</p>`): Werden nicht als Markdown geparst
+- **Tabellen-Zellen**: Meistens sicher, aber bei Unsicherheit Inline-Code nutzen
+
+### Regeln beim Schreiben von MDX-Artikeln
+
+1. **NIEMALS** `X:Y`-Verhältnisse als Fließtext schreiben — immer umschreiben oder Inline-Code nutzen
+2. **Uhrzeiten** im Fließtext als `10.00 Uhr` oder `` `10:00` `` schreiben
+3. **Port-Nummern** (`:3000`, `:8080`) nur in Code-Blöcken oder Inline-Code verwenden
+4. **Tags** wie `tag:server` immer in Inline-Code: `` `tag:server` ``
+5. **Emojis/Shortcodes** wie `:smile:` funktionieren NICHT — sie werden als Directive geparst
+
 ## MDX Styling
 
 Blog post content is rendered inside a `.post-content` wrapper with scoped `:global()` styles:
