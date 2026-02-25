@@ -4,6 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import svelte from '@astrojs/svelte';
 import speedMeasure from '@casoon/astro-speed-measure';
 import tailwindcss from '@tailwindcss/vite';
+// import postAudit from 'astro-post-audit'; // optional: post-build SEO/a11y audit
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
@@ -31,6 +32,7 @@ export default defineConfig({
       },
     }),
     speedMeasure(),
+    // postAudit({ exclude: ['blog/index.html'] }), // optional: enable for post-build SEO/a11y audit
   ],
 
   prefetch: {
