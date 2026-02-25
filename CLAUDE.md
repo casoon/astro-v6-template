@@ -124,5 +124,12 @@ e2e/
 
 Detailed development guidelines are available as skills under `.claude/skills/`:
 
-- **astro-v6** - Astro v6 API, Content Collections, Zod v4, component patterns
-- **tailwind-v4** - Tailwind v4 syntax, design tokens, dark mode, CSS-first config
+- **astro-v6** — Astro v6 API, Content Collections, Zod v4, component patterns
+- **tailwind-v4** — Tailwind v4 syntax, design tokens, dark mode, CSS-first config
+- **svelte-5** — Runes API ($state, $derived, $effect), event handlers, props
+- **playwright** — E2E test patterns, axe-core a11y, multi-project config
+- **cloudflare** — Workers deploy, wrangler, KV bindings, sessions, adapter
+- **i18n** — Translations, locale routing, adding pages/locales
+- **biome** — Lint/format config, pre-commit hooks, known quirks
+- **mdx-content** — Content Collections, Loader API, blog posts, RSS
+- **seo** — OG images, PageSEO component, sitemap, robots.txt, JSON-LD
