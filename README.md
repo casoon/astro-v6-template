@@ -2,11 +2,11 @@
 
 <!-- BADGES:START -->
 [![CI](https://github.com/casoon/astro-v6-template/actions/workflows/ci.yml/badge.svg)](https://github.com/casoon/astro-v6-template/actions/workflows/ci.yml)
-[![Astro](https://img.shields.io/badge/Astro-6.0.0--beta.13-FF5D01?logo=astro&logoColor=white)](https://astro.build)
+[![Astro](https://img.shields.io/badge/Astro-6.0.4-FF5D01?logo=astro&logoColor=white)](https://astro.build)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-4.2.1-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
-[![Svelte](https://img.shields.io/badge/Svelte-5.46.0-FF3E00?logo=svelte&logoColor=white)](https://svelte.dev)
+[![Svelte](https://img.shields.io/badge/Svelte-5.53.11-FF3E00?logo=svelte&logoColor=white)](https://svelte.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Biome](https://img.shields.io/badge/Biome-2.3.10-60A5FA?logo=biome&logoColor=white)](https://biomejs.dev)
+[![Biome](https://img.shields.io/badge/Biome-2.4.6-60A5FA?logo=biome&logoColor=white)](https://biomejs.dev)
 [![Zod](https://img.shields.io/badge/Zod-4.2.1-3068B7?logo=zod&logoColor=white)](https://zod.dev)
 [![pnpm](https://img.shields.io/badge/pnpm-9.15.4-F69220?logo=pnpm&logoColor=white)](https://pnpm.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
