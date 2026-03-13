@@ -36,6 +36,9 @@
     "test:e2e": "playwright test",
     "test:e2e:starter": "playwright test --project=starter",
     "test:e2e:blog": "playwright test --project=blog",
+    "deploy": "pnpm deploy:starter && pnpm deploy:blog",
+    "deploy:starter": "pnpm --filter @astro-v6/starter run deploy",
+    "deploy:blog": "pnpm --filter @astro-v6/blog run deploy",
     "clean": "pnpm -r clean && rm -rf node_modules",
     "prepare": "husky"
   },
