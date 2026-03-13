@@ -135,3 +135,4 @@ Detailed development guidelines are available as skills under `.claude/skills/`:
 - **mdx-content** — Content Collections, Loader API, blog posts, RSS
 - **seo** — OG images, PageSEO component, sitemap, robots.txt, JSON-LD
 - **local-business-seo** — LocalBusiness JSON-LD, geo meta tags, areaServed, regionale Keywords
+- **wcag-a11y** — WCAG 2.2 AA patterns: landmarks, forms, focus, contrast, ARIA, motion, dialogs, checklists
