@@ -5,6 +5,7 @@ packages:
 onlyBuiltDependencies:
   - '@casoon/astro-post-audit'
   - esbuild
+    - x64
 
 catalog:
   # Astro v6 (stable)
