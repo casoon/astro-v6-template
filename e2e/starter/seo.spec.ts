@@ -36,7 +36,7 @@ test.describe('Starter – SEO & OG', () => {
     const jsonLd = page.locator('script[type="application/ld+json"]');
     const content = await jsonLd.textContent();
     expect(content).toBeTruthy();
-    const data = JSON.parse(content!);
+    const data = JSON.parse(content ?? '{}');
     expect(data['@type']).toBe('WebPage');
     expect(data.name).toContain('Astro v6 Starter');
   });

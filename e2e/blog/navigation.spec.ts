@@ -18,7 +18,7 @@ test.describe('Blog – Navigation', () => {
     const firstPost = page.locator('a[href*="/blog/"]').first();
     const href = await firstPost.getAttribute('href');
     await firstPost.click();
-    await expect(page).toHaveURL(new RegExp(href!));
+    await expect(page).toHaveURL(new RegExp(href ?? ''));
     await expect(page.locator('article')).toBeVisible();
   });
 

@@ -1,11 +1,11 @@
 ---
-import { getCollection, render } from 'astro:content';
 import Navbar from '@astro-v6/shared/components/Navbar.astro';
 import ThemeToggle from '@astro-v6/shared/components/ThemeToggle.svelte';
 import BaseLayout from '@astro-v6/shared/layouts/BaseLayout.astro';
 import PageSEO from '@astro-v6/shared/seo/PageSEO.astro';
 import { localePath, switchLocalePath } from '@astro-v6/shared/utils/i18n';
 import { t } from '@/i18n';
+import { getCollection, render } from 'astro:content';
 import '@/styles/app.css';
 
 const locale = 'de';

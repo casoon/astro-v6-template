@@ -1,5 +1,5 @@
-import { getCollection } from 'astro:content';
 import { createSitemapRoute } from '@astro-v6/shared/utils/sitemap';
+import { getCollection } from 'astro:content';
 
 const pageModules = import.meta.glob('./**/*.astro', { eager: true });
 
