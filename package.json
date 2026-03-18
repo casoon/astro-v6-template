@@ -60,6 +60,12 @@
     "svelte-5",
     "biome"
   ],
+  "pnpm": {
+    "overrides": {
+      "vite": "^8.0.0",
+      "@sveltejs/vite-plugin-svelte": "^7.0.0"
+    }
+  },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.1",
     "@biomejs/biome": "catalog:",
