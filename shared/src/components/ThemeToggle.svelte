@@ -10,6 +10,7 @@ function toggle() {
   document.documentElement.classList.toggle('dark', isDark);
   const theme = isDark ? 'dark' : 'light';
 
+  // biome-ignore lint/suspicious/noDocumentCookie: Cookie Store API lacks broad browser support
   document.cookie = `theme=${theme}; path=/; max-age=31536000; SameSite=Lax`;
 
   try {

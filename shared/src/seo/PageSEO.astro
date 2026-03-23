@@ -4,9 +4,11 @@ export interface Props {
   description: string;
   canonicalUrl?: string;
   ogImage?: string;
-  ogType?: string;
+  ogType?: 'website' | 'article';
   twitterCard?: 'summary' | 'summary_large_image';
   noIndex?: boolean;
+  articleAuthor?: string;
+  articleDate?: Date;
 }
 
 const {
@@ -17,9 +19,31 @@ const {
   ogType = 'website',
   twitterCard = 'summary_large_image',
   noIndex = false,
+  articleAuthor,
+  articleDate,
 } = Astro.props;
 
 const resolvedCanonical = canonicalUrl || Astro.url.href;
+
+const jsonLd =
+  ogType === 'article'
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: title,
+        description,
+        url: resolvedCanonical,
+        ...(ogImage && { image: ogImage }),
+        ...(articleAuthor && { author: { '@type': 'Person', name: articleAuthor } }),
+        ...(articleDate && { datePublished: articleDate.toISOString() }),
+      }
+    : {
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: title,
+        description,
+        url: resolvedCanonical,
+      };
 ---
 
 {noIndex && <meta name="robots" content="noindex, nofollow" />}
@@ -41,11 +65,5 @@ const resolvedCanonical = canonicalUrl || Astro.url.href;
 <!-- JSON-LD -->
 <script
   type="application/ld+json"
-  set:html={JSON.stringify({
-    '@context': 'https://schema.org',
-    '@type': 'WebPage',
-    name: title,
-    description: description,
-    url: resolvedCanonical,
-  })}
+  set:html={JSON.stringify(jsonLd)}
 />

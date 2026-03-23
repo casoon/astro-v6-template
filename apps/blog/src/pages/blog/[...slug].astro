@@ -38,6 +38,8 @@ const links = [{ href: localePath('/', locale), label: tr('nav.home') }];
     description={post.data.description}
     ogType="article"
     ogImage={new URL(`/og/blog/${post.id}.png`, Astro.site).href}
+    articleAuthor={post.data.author}
+    articleDate={post.data.date}
   />
 
   <Navbar slot="header" siteName="Astro v6 Blog" links={links}>
