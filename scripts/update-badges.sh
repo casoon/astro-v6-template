@@ -15,11 +15,14 @@ ASTRO=$(get_version "astro")
 TAILWIND=$(get_version "tailwindcss")
 SVELTE=$(get_version "svelte")
 TYPESCRIPT=$(get_version "typescript")
-BIOME=$(get_version "'@biomejs/biome'")
+BIOME=$(get_version '"@biomejs/biome"')
 ZOD=$(get_version "zod")
 
 # pnpm version from package.json packageManager field
 PNPM=$(grep '"packageManager"' package.json | sed 's/.*pnpm@//' | tr -d '",')
+
+# nosecrets version from root package.json
+NOSECRETS=$(grep '"@casoon/nosecrets"' package.json | sed 's/.*\^//' | tr -d '", ')
 
 # Escape hyphens for shields.io (- is a separator, use -- for literal hyphen)
 escape_shields() { echo "$1" | sed 's/-/--/g'; }
@@ -30,6 +33,7 @@ SVELTE_ESC=$(escape_shields "$SVELTE")
 TYPESCRIPT_ESC=$(escape_shields "$TYPESCRIPT")
 BIOME_ESC=$(escape_shields "$BIOME")
 ZOD_ESC=$(escape_shields "$ZOD")
+NOSECRETS_ESC=$(escape_shields "$NOSECRETS")
 PNPM_ESC=$(escape_shields "$PNPM")
 
 # Build badges file
@@ -43,6 +47,7 @@ cat > "$BADGES_FILE" <<EOF
 [![Biome](https://img.shields.io/badge/Biome-${BIOME_ESC}-60A5FA?logo=biome&logoColor=white)](https://biomejs.dev)
 [![Zod](https://img.shields.io/badge/Zod-${ZOD_ESC}-3068B7?logo=zod&logoColor=white)](https://zod.dev)
 [![pnpm](https://img.shields.io/badge/pnpm-${PNPM_ESC}-F69220?logo=pnpm&logoColor=white)](https://pnpm.io/)
+[![nosecrets](https://img.shields.io/badge/nosecrets-${NOSECRETS_ESC}-4B32C3?logo=gnuprivacyguard&logoColor=white)](https://www.npmjs.com/package/@casoon/nosecrets)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 EOF
 
@@ -55,4 +60,4 @@ awk -v file="$BADGES_FILE" '
 
 rm -f "$BADGES_FILE"
 
-echo "Badges updated: Astro=$ASTRO Tailwind=$TAILWIND Svelte=$SVELTE TS=$TYPESCRIPT Biome=$BIOME Zod=$ZOD pnpm=$PNPM"
+echo "Badges updated: Astro=$ASTRO Tailwind=$TAILWIND Svelte=$SVELTE TS=$TYPESCRIPT Biome=$BIOME Zod=$ZOD nosecrets=$NOSECRETS pnpm=$PNPM"
