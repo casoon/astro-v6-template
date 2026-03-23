@@ -136,3 +136,54 @@ Detailed development guidelines are available as skills under `.claude/skills/`:
 - **seo** — OG images, PageSEO component, sitemap, robots.txt, JSON-LD
 - **local-business-seo** — LocalBusiness JSON-LD, geo meta tags, areaServed, regionale Keywords
 - **wcag-a11y** — WCAG 2.2 AA patterns: landmarks, forms, focus, contrast, ARIA, motion, dialogs, checklists
+- **darkmode** — Dark mode implementation: class-based toggle, cookie persistence, color guidelines, FOUC prevention
+- **performance** — Core Web Vitals, image optimization, content-visibility, scroll-driven animations
+- **webspire** — Webspire MCP integration: UI patterns, CSS snippets, design tokens, glass effects
+
+## Webspire MCP
+
+[Webspire](https://www.webspire.de) provides curated UI patterns and CSS snippets via MCP.
+
+### Setup
+- MCP server configured in `.claude/mcp.json` (`@webspire/mcp`)
+- Query patterns: `search_patterns`, `get_pattern` (hero, pricing, faq, tabs, cards, steps)
+- Query snippets: `search_snippets`, `get_snippet` (glass, scroll, hover, easing)
+- Brand mapping: `recommend_token_mapping` generates CSS tokens from your brand colors
+
+### Token Integration
+1. Use `setup_tokens` to generate base token CSS
+2. Override `--ws-color-primary`, `--ws-color-accent` etc. with your brand colors
+3. Webspire patterns automatically inherit your brand via CSS custom properties
+
+### Available CSS Snippets
+Commonly used classes: `.scroll-reveal`, `.hover-lift`, `.shine-sweep`, `.border-draw`, `.spotlight-card`, `.stagger-children`
+
+All snippets include `@media (prefers-reduced-motion: reduce)` handlers.
+
+## View Transitions (ClientRouter)
+
+### Script Patterns
+- **Module `<script>`** — runs once, persists across navigations. Use `astro:page-load` for re-initialization.
+- **`<script is:inline>`** — re-runs on every navigation. No TypeScript allowed.
+- **`data-astro-rerun`** — forces re-execution. Implies `is:inline`. Use IIFE for fresh DOM refs.
+
+### Common Mistakes
+| Mistake | Fix |
+|---------|-----|
+| `astro:page-load` + `data-astro-rerun` together | Choose one — both causes double execution |
+| TypeScript in `is:inline` scripts | Remove type annotations, use plain JS |
+| `classList.add('a b')` (space in string) | Use `classList.add('a', 'b')` (separate args) |
+| document-level listeners without cleanup | Store on `window.__handler`, remove before re-adding |
+
+## Dark Mode
+
+Class-based via `.dark` on `<html>`. Persisted via cookie (cross-subdomain) + localStorage.
+
+### Key Principles
+- Warm tones, not cold grays
+- No pure black (`#000`) or pure white (`#fff`)
+- Adjust accent colors for dark surfaces (lighten or warm up)
+- Use `:global(html.dark)` in scoped Astro styles
+- All animations must support `prefers-reduced-motion: reduce`
+
+See `/darkmode` skill for complete implementation guide.

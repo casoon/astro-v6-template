@@ -7,6 +7,10 @@
     "cloudflare": {
       "command": "npx",
       "args": ["-y", "@cloudflare/mcp-server-cloudflare"]
+    },
+    "webspire": {
+      "command": "npx",
+      "args": ["-y", "@webspire/mcp"]
     }
   }
 }

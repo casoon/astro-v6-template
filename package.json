@@ -68,5 +68,8 @@
     "husky": "catalog:",
     "lint-staged": "catalog:",
     "sharp": "catalog:"
+  },
+  "dependencies": {
+    "@webspire/mcp": "0.7.1"
   }
 }
