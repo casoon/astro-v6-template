@@ -108,11 +108,11 @@ test('robots.txt is accessible and contains Sitemap', async ({ page }) => {
   expect(text).toContain('Sitemap:');
 });
 
-test('sitemap-index.xml is accessible', async ({ page }) => {
-  const response = await page.goto('/sitemap-index.xml');
+test('sitemap.xml is accessible', async ({ page }) => {
+  const response = await page.goto('/sitemap.xml');
   expect(response?.status()).toBe(200);
   const text = await response?.text();
-  expect(text).toContain('<sitemapindex');
+  expect(text).toContain('<urlset');
 });
 
 test('JSON-LD structured data is present', async ({ page }) => {

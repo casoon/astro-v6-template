@@ -112,6 +112,12 @@ e2e/
 - Run: `pnpm test:e2e`, `pnpm test:e2e:starter`, `pnpm test:e2e:blog`
 - Covers: navigation, i18n, SEO/OG meta tags, contact form, theme toggle, RSS, a11y (axe-core), robots.txt, sitemap
 
+## CI
+
+- Main CI workflow (`.github/workflows/ci.yml`) is read-only: install, lint, type-check, build
+- README badge refresh runs separately in `.github/workflows/update-badges.yml`
+- Do not assume the main CI job pushes commits
+
 ## Security
 - Content Security Policy (CSP) with SHA-256 algorithm
 - Server-side sessions via Cloudflare KV (`sessionKVBindingName: 'SESSION'`)
@@ -138,6 +144,7 @@ Detailed development guidelines are available as skills under `.claude/skills/`:
 - **wcag-a11y** — WCAG 2.2 AA patterns: landmarks, forms, focus, contrast, ARIA, motion, dialogs, checklists
 - **darkmode** — Dark mode implementation: class-based toggle, cookie persistence, color guidelines, FOUC prevention
 - **performance** — Core Web Vitals, image optimization, content-visibility, scroll-driven animations
+- **post-audit** — Post-build SEO/a11y/link audit integration and remediation patterns
 - **webspire** — Webspire MCP integration: UI patterns, CSS snippets, design tokens, glass effects
 
 ## Webspire MCP
@@ -177,7 +184,7 @@ All snippets include `@media (prefers-reduced-motion: reduce)` handlers.
 
 ## Dark Mode
 
-Class-based via `.dark` on `<html>`. Persisted via cookie (cross-subdomain) + localStorage.
+Class-based via `.dark` on `<html>`. Persisted via cookie + localStorage.
 
 ### Key Principles
 - Warm tones, not cold grays

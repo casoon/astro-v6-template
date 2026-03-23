@@ -55,11 +55,15 @@ The blog pre-renders all pages at build time. The adapter generates `dist/client
 ```toml
 name = "astro-v6-starter"
 compatibility_date = "2025-12-01"
-compatibility_flags = ["nodejs_compat"]
+compatibility_flags = ["nodejs_compat", "no_handle_cross_request_promise_resolution"]
 
 [[kv_namespaces]]
 binding = "SESSION"
 id = "21fa37fe76934de8afe152b0d032a845"
+
+[assets]
+html_handling = "force-trailing-slash"
+not_found_handling = "404-page"
 
 [observability]
 enabled = true
@@ -70,10 +74,12 @@ enabled = true
 ```toml
 name = "astro-v6-blog"
 compatibility_date = "2025-12-01"
-compatibility_flags = ["nodejs_compat"]
+compatibility_flags = ["nodejs_compat", "no_handle_cross_request_promise_resolution"]
 
 [assets]
 directory = "./dist/client"
+html_handling = "force-trailing-slash"
+not_found_handling = "404-page"
 
 [observability]
 enabled = true
@@ -86,10 +92,10 @@ enabled = true
 pnpm build
 
 # Deploy starter
-cd apps/starter && pnpm wrangler deploy
+cd apps/starter && wrangler deploy --config dist/server/wrangler.json
 
 # Deploy blog
-cd apps/blog && pnpm wrangler deploy
+cd apps/blog && wrangler deploy
 ```
 
 ### Known Issues
@@ -103,6 +109,8 @@ pnpm wrangler deploy
 ```
 
 **Starter SSR Worker:** The adapter generates `dist/server/wrangler.json` which Wrangler uses as the redirected configuration. The `dist/server/` directory contains the Worker entry point.
+
+**pnpm 10 note:** If install logs say build scripts were ignored for `workerd`, add it to `onlyBuiltDependencies` in `pnpm-workspace.yaml` or approve builds explicitly. This template already whitelists it.
 
 ## KV Bindings
 

@@ -2,13 +2,13 @@
 
 <!-- BADGES:START -->
 [![CI](https://github.com/casoon/astro-v6-template/actions/workflows/ci.yml/badge.svg)](https://github.com/casoon/astro-v6-template/actions/workflows/ci.yml)
-[![Astro](https://img.shields.io/badge/Astro-6.0.4-FF5D01?logo=astro&logoColor=white)](https://astro.build)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-4.2.1-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
-[![Svelte](https://img.shields.io/badge/Svelte-5.53.11-FF3E00?logo=svelte&logoColor=white)](https://svelte.dev)
+[![Astro](https://img.shields.io/badge/Astro-6.0.8-FF5D01?logo=astro&logoColor=white)](https://astro.build)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-4.2.2-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![Svelte](https://img.shields.io/badge/Svelte-5.54.1-FF3E00?logo=svelte&logoColor=white)](https://svelte.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Biome](https://img.shields.io/badge/Biome-2.4.6-60A5FA?logo=biome&logoColor=white)](https://biomejs.dev)
-[![Zod](https://img.shields.io/badge/Zod-4.2.1-3068B7?logo=zod&logoColor=white)](https://zod.dev)
-[![pnpm](https://img.shields.io/badge/pnpm-9.15.4-F69220?logo=pnpm&logoColor=white)](https://pnpm.io/)
+[![Biome](https://img.shields.io/badge/Biome-2.4.8-60A5FA?logo=biome&logoColor=white)](https://biomejs.dev)
+[![Zod](https://img.shields.io/badge/Zod-4.3.6-3068B7?logo=zod&logoColor=white)](https://zod.dev)
+[![pnpm](https://img.shields.io/badge/pnpm-10.32.1-F69220?logo=pnpm&logoColor=white)](https://pnpm.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 <!-- BADGES:END -->
 
@@ -16,7 +16,7 @@ A lean, production-ready **Astro v6** monorepo template with Tailwind v4, Svelte
 
 **Live Demos:** [Starter](https://astrov6.casoon.dev) · [Blog](https://astrov6blog.casoon.dev)
 
-> **Status:** Astro v6 is currently in beta. This template will be updated with the stable release.
+> **Status:** Astro v6 is stable. This template tracks the latest Astro v6 releases.
 
 ## Multi-Project Architecture
 
@@ -58,6 +58,7 @@ This template succeeds [astro-v5-template](https://github.com/casoon/astro-v5-te
 - **Sessions** — Server-side session management via Cloudflare KV
 - **Build Metrics** — [`@casoon/astro-speed-measure`](https://github.com/casoon/astro-speed-measure) for build performance tracking
 - **Post-Build Audit** — [`@casoon/astro-post-audit`](https://github.com/casoon/astro-post-audit) for SEO, link and WCAG checks after every build
+- **Secret Scanning** — [`@casoon/nosecrets`](https://github.com/casoon/nosecrets) in pre-commit plus manual workspace scans
 - **Playwright** — E2E tests for both apps with axe-core a11y scanning
 - **Biome** — Single tool for linting + formatting (replaces ESLint + Prettier)
 - **Zod v4** — Runtime validation for env, forms, API
@@ -201,6 +202,16 @@ pnpm test:e2e:blog
 ```
 
 Tests covering navigation, i18n, SEO/OG meta tags, contact form, theme toggle, RSS, accessibility (axe-core WCAG 2.1 AA), robots.txt and sitemap.
+
+## Secret Scanning
+
+```bash
+# Scan the whole workspace
+pnpm secrets:scan
+
+# Scan only staged files (used by pre-commit)
+pnpm secrets:scan:staged
+```
 
 ## Build Performance Metrics
 
@@ -347,8 +358,8 @@ This template leverages the key features of Astro v6:
 
 This template includes a full [Claude Code](https://docs.anthropic.com/en/docs/claude-code) setup for AI-assisted development:
 
-- **Skills** (`.claude/skills/`) — Domain-specific guidelines for Astro v6, Tailwind v4, Svelte 5, Playwright, Cloudflare, i18n, SEO, local business SEO, MDX, Biome, and more
-- **MCP Servers** (`.claude/mcp.json`) — Pre-configured MCP servers for context7 documentation lookup and Cloudflare tooling
+- **Skills** (`.claude/skills/`) — Domain-specific guidelines for Astro v6, Tailwind v4, Svelte 5, Playwright, Cloudflare, i18n, SEO, local business SEO, MDX, Biome, final-pass, and more
+- **MCP Servers** (`.claude/mcp.json`) — Pre-configured MCP servers for context7 documentation lookup, Cloudflare tooling, and Webspire UI patterns
 - **Project instructions** (`CLAUDE.md`) — Architecture rules, code conventions, and dependency constraints
 
 ## License

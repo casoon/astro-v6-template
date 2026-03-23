@@ -12,13 +12,19 @@
     "./utils/*": "./src/utils/*"
   },
   "dependencies": {
-    "@resvg/resvg-js": "^2.6.2",
+    "@resvg/resvg-js": "catalog:",
     "clsx": "catalog:",
-    "satori": "^0.25.0",
+    "satori": "catalog:",
     "tailwind-merge": "catalog:",
     "zod": "catalog:"
   },
   "peerDependencies": {
-    "astro": "catalog:"
+    "@astrojs/svelte": "catalog:",
+    "astro": "catalog:",
+    "svelte": "catalog:"
+  },
+  "devDependencies": {
+    "@astrojs/svelte": "catalog:",
+    "svelte": "catalog:"
   }
 }

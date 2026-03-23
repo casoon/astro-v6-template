@@ -1,10 +1,12 @@
 import type { APIContext } from 'astro';
-import { getCollection } from 'astro:content';
+import { type CollectionEntry, getCollection } from 'astro:content';
 
 export async function GET(context: APIContext) {
+  type BlogPost = CollectionEntry<'blog'>;
+
   const posts = (await getCollection('blog'))
-    .filter((post) => !post.data.draft)
-    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+    .filter((post: BlogPost) => !post.data.draft)
+    .sort((a: BlogPost, b: BlogPost) => b.data.date.valueOf() - a.data.date.valueOf());
 
   const site = (context.site?.toString() ?? new URL('/', context.url).toString()).replace(
     /\/$/,
@@ -13,7 +15,7 @@ export async function GET(context: APIContext) {
 
   const items = posts
     .map(
-      (post) => `    <item>
+      (post: BlogPost) => `    <item>
       <title><![CDATA[${post.data.title}]]></title>
       <description><![CDATA[${post.data.description}]]></description>
       <pubDate>${post.data.date.toUTCString()}</pubDate>

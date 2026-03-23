@@ -33,7 +33,7 @@ const links = [
     <h1 class="mb-4 text-[clamp(2rem,5vw,3.5rem)] font-extrabold leading-tight tracking-tight">{tr('home.title')}</h1>
     <p class="mb-8 text-xl text-text-secondary">{tr('home.description')}</p>
     <div class="flex flex-wrap justify-center gap-4">
-      <a href="https://docs.astro.build" class="inline-flex items-center rounded-md bg-accent px-6 py-3 font-semibold text-text-inverse no-underline transition-colors hover:bg-accent-hover" target="_blank" rel="noopener">
+      <a href="https://docs.astro.build" class="inline-flex items-center rounded-md bg-accent px-6 py-3 font-semibold text-text-inverse no-underline transition-colors hover:bg-accent-hover" target="_blank" rel="noopener noreferrer">
         {tr('home.cta.docs')}
       </a>
       <a href={localePath('/contact', locale)} class="inline-flex items-center rounded-md border border-border px-6 py-3 font-semibold text-text no-underline transition-colors hover:bg-bg-secondary">
@@ -72,6 +72,6 @@ const links = [
   </section>
 
   <footer slot="footer" class="border-t border-border px-6 py-8 text-center text-sm text-text-secondary">
-    <p>&copy; {new Date().getFullYear()} Astro v6 Starter. {tr('footer.built')} <a href="https://astro.build" target="_blank" rel="noopener">Astro</a>.</p>
+    <p>&copy; {new Date().getFullYear()} Astro v6 Starter. {tr('footer.built')} <a href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro</a>.</p>
   </footer>
 </BaseLayout>

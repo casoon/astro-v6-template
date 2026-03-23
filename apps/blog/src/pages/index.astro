@@ -5,15 +5,16 @@ import BaseLayout from '@astro-v6/shared/layouts/BaseLayout.astro';
 import PageSEO from '@astro-v6/shared/seo/PageSEO.astro';
 import { localePath } from '@astro-v6/shared/utils/i18n';
 import { t } from '@/i18n';
-import { getCollection } from 'astro:content';
+import { type CollectionEntry, getCollection } from 'astro:content';
 import '@/styles/app.css';
 
 const locale = 'en';
 const tr = t(locale);
+type BlogPost = CollectionEntry<'blog'>;
 
 const posts = (await getCollection('blog'))
-  .filter((post) => !post.data.draft)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+  .filter((post: BlogPost) => !post.data.draft)
+  .sort((a: BlogPost, b: BlogPost) => b.data.date.valueOf() - a.data.date.valueOf());
 
 const links = [{ href: localePath('/', locale), label: tr('nav.home') }];
 ---
@@ -39,7 +40,7 @@ const links = [{ href: localePath('/', locale), label: tr('nav.home') }];
   <section class="mx-auto max-w-3xl px-6 pb-12">
     <h2 class="mb-6 text-2xl font-bold">{tr('home.latest')}</h2>
     <ul class="flex list-none flex-col gap-4 p-0" role="list">
-      {posts.map((post) => (
+      {posts.map((post: BlogPost) => (
         <li>
           <a href={`/blog/${post.id}`} class="block rounded-xl border border-border bg-surface p-8 no-underline text-inherit transition-all hover:border-accent hover:shadow-md">
             <time datetime={post.data.date.toISOString()} class="mb-1 block text-xs text-text-secondary">
@@ -49,7 +50,7 @@ const links = [{ href: localePath('/', locale), label: tr('nav.home') }];
             <p class="leading-relaxed text-text-secondary">{post.data.description}</p>
             {post.data.tags.length > 0 && (
               <div class="mt-3 flex flex-wrap gap-1">
-                {post.data.tags.map((tag) => (
+                {post.data.tags.map((tag: string) => (
                   <span class="rounded-full bg-bg-secondary px-2 py-0.5 text-xs text-text-secondary">{tag}</span>
                 ))}
               </div>

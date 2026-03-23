@@ -20,19 +20,34 @@ const { title, description = '', lang = 'en' } = Astro.props;
     <title>{title}</title>
     <ClientRouter />
     <script is:inline>
+      function getStoredTheme() {
+        try {
+          const cookieTheme = document.cookie.match(/(?:^|;\s*)theme=(dark|light)(?:;|$)/)?.[1];
+          return cookieTheme || localStorage.getItem('theme');
+        } catch {
+          return null;
+        }
+      }
+
       function applyTheme() {
         document.documentElement.classList.remove('no-js');
+        const storedTheme = getStoredTheme();
         if (
-          localStorage.getItem('theme') === 'dark' ||
-          (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)
+          storedTheme === 'dark' ||
+          (!storedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)
         ) {
           document.documentElement.classList.add('dark');
         } else {
           document.documentElement.classList.remove('dark');
         }
       }
+
       applyTheme();
-      document.addEventListener('astro:after-swap', applyTheme);
+      if (window.__applyThemeHandler) {
+        document.removeEventListener('astro:after-swap', window.__applyThemeHandler);
+      }
+      window.__applyThemeHandler = applyTheme;
+      document.addEventListener('astro:after-swap', window.__applyThemeHandler);
     </script>
     <slot name="head" />
   </head>

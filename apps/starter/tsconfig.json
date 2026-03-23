@@ -12,5 +12,5 @@
       "@astro-v6/shared/*": ["../../shared/src/*"]
     }
   },
-  "exclude": ["scripts"]
+  "exclude": ["scripts", "dist", ".astro"]
 }

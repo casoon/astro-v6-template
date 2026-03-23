@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /build-info.json
 
-Sitemap: https://astrov6.casoon.dev/sitemap-index.xml
+Sitemap: https://astrov6.casoon.dev/sitemap.xml

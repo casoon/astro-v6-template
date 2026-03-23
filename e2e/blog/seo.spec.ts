@@ -41,11 +41,11 @@ test.describe('Blog – SEO & OG', () => {
     expect(body).toContain('Sitemap:');
   });
 
-  test('sitemap-index.xml is accessible', async ({ request }) => {
-    const response = await request.get('/sitemap-index.xml');
+  test('sitemap.xml is accessible', async ({ request }) => {
+    const response = await request.get('/sitemap.xml');
     expect(response.status()).toBe(200);
     const body = await response.text();
-    expect(body).toContain('<sitemap');
+    expect(body).toContain('<urlset');
   });
 
   test('all pages have meta description', async ({ page }) => {

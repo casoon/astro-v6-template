@@ -61,15 +61,23 @@ Only use `is:inline` when one of these applies:
 Must execute **synchronously before paint** to avoid flash of unstyled content:
 
 ```html
-<!-- BaseLayout.astro — CORRECT use of is:inline -->
+<!-- BaseLayout.astro — correct use of is:inline with listener cleanup -->
 <head>
   <script is:inline>
+    function getStoredTheme() {
+      try {
+        return document.cookie.match(/(?:^|;\s*)theme=(dark|light)(?:;|$)/)?.[1] || localStorage.getItem('theme');
+      } catch {
+        return null;
+      }
+    }
+
     function applyTheme() {
       document.documentElement.classList.remove('no-js');
+      const storedTheme = getStoredTheme();
       if (
-        localStorage.getItem('theme') === 'dark' ||
-        (!localStorage.getItem('theme') &&
-          window.matchMedia('(prefers-color-scheme: dark)').matches)
+        storedTheme === 'dark' ||
+        (!storedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)
       ) {
         document.documentElement.classList.add('dark');
       } else {
@@ -77,7 +85,11 @@ Must execute **synchronously before paint** to avoid flash of unstyled content:
       }
     }
     applyTheme();
-    document.addEventListener('astro:after-swap', applyTheme);
+    if (window.__applyThemeHandler) {
+      document.removeEventListener('astro:after-swap', window.__applyThemeHandler);
+    }
+    window.__applyThemeHandler = applyTheme;
+    document.addEventListener('astro:after-swap', window.__applyThemeHandler);
   </script>
 </head>
 ```
@@ -134,7 +146,9 @@ For anything beyond simple DOM manipulation, prefer Svelte 5 components with Run
   function toggle() {
     dark = !dark;
     document.documentElement.classList.toggle('dark', dark);
-    localStorage.setItem('theme', dark ? 'dark' : 'light');
+    const theme = dark ? 'dark' : 'light';
+    document.cookie = `theme=${theme}; path=/; max-age=31536000; SameSite=Lax`;
+    localStorage.setItem('theme', theme);
   }
 </script>
 

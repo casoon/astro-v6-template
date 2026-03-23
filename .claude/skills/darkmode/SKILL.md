@@ -17,22 +17,30 @@ Tailwind v4 custom variant in CSS entry:
 Init script in `<head>` (must be `is:inline` to prevent FOUC):
 ```html
 <script is:inline>
-  (function() {
-    var t = null;
-    try { t = document.cookie.match(/theme=(dark|light)/)?.[1] || localStorage.getItem('theme'); } catch(e) {}
-    if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.documentElement.classList.add('dark');
+  function getStoredTheme() {
+    try {
+      return document.cookie.match(/(?:^|;\s*)theme=(dark|light)(?:;|$)/)?.[1] || localStorage.getItem('theme');
+    } catch (e) {
+      return null;
     }
-  })();
-  document.addEventListener('astro:after-swap', function() {
-    var t = null;
-    try { t = document.cookie.match(/theme=(dark|light)/)?.[1] || localStorage.getItem('theme'); } catch(e) {}
+  }
+
+  function applyTheme() {
+    var t = getStoredTheme();
+    document.documentElement.classList.remove('no-js');
     if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
     }
-  });
+  }
+
+  applyTheme();
+  if (window.__applyThemeHandler) {
+    document.removeEventListener('astro:after-swap', window.__applyThemeHandler);
+  }
+  window.__applyThemeHandler = applyTheme;
+  document.addEventListener('astro:after-swap', window.__applyThemeHandler);
 </script>
 ```
 
@@ -42,11 +50,11 @@ Tailwind v4 uses `prefers-color-scheme` by default — no configuration needed. 
 
 ## Persistence
 
-### Cookie (cross-subdomain)
+### Cookie
 ```javascript
-document.cookie = 'theme=' + value + ';path=/;domain=.yourdomain.com;max-age=31536000;SameSite=Lax';
+document.cookie = 'theme=' + value + ';path=/;max-age=31536000;SameSite=Lax';
 ```
-Technical cookie — no consent banner required (UI preference, not tracking).
+Technical cookie — no consent banner required (UI preference, not tracking). Add a `domain=` attribute only if you explicitly need cross-subdomain persistence.
 
 ### localStorage (single domain fallback)
 ```javascript
@@ -63,6 +71,8 @@ btn.addEventListener('click', function() {
   try { localStorage.setItem('theme', v); } catch(e) {}
 });
 ```
+
+Use the Cookie Store API only if your browser support targets allow it. Plain `document.cookie` remains the compatibility fallback used in this template.
 
 ## CSS Patterns
 

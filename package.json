@@ -1,6 +1,6 @@
 {
   "name": "astro-v6-workspace",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "private": true,
   "description": "Astro v6 monorepo template with pnpm workspaces, Tailwind v4, Svelte 5, and Biome",
   "author": "casoon",
@@ -10,14 +10,14 @@
     "type": "git",
     "url": "https://github.com/casoon/astro-v6-template"
   },
-  "packageManager": "pnpm@9.15.4",
+  "packageManager": "pnpm@10.32.1",
   "engines": {
     "node": ">=22.12.0",
     "pnpm": ">=9.0.0"
   },
   "volta": {
     "node": "24.11.0",
-    "pnpm": "9.15.4"
+    "pnpm": "10.32.1"
   },
   "scripts": {
     "dev": "pnpm --filter @astro-v6/starter dev",
@@ -39,6 +39,8 @@
     "deploy": "pnpm deploy:starter && pnpm deploy:blog",
     "deploy:starter": "pnpm --filter @astro-v6/starter run deploy",
     "deploy:blog": "pnpm --filter @astro-v6/blog run deploy",
+    "secrets:scan": "pnpm exec nosecrets scan .",
+    "secrets:scan:staged": "pnpm exec nosecrets scan --staged",
     "clean": "pnpm -r clean && rm -rf node_modules",
     "prepare": "husky"
   },
@@ -61,15 +63,15 @@
     "biome"
   ],
   "devDependencies": {
-    "@axe-core/playwright": "^4.11.1",
+    "@axe-core/playwright": "catalog:",
     "@biomejs/biome": "catalog:",
-    "@casoon/nosecrets": "^0.1.6",
+    "@casoon/nosecrets": "^0.3.6",
     "@playwright/test": "^1.58.2",
     "husky": "catalog:",
     "lint-staged": "catalog:",
     "sharp": "catalog:"
   },
   "dependencies": {
-    "@webspire/mcp": "0.7.1"
+    "@webspire/mcp": "0.8.1"
   }
 }

@@ -13,7 +13,7 @@ Biome is the **single tool** for linting and formatting in this project — no E
 
 ```json
 {
-  "$schema": "https://biomejs.dev/schemas/2.4.4/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.4.8/schema.json",
   "files": {
     "includes": ["**/*.js", "**/*.ts", "**/*.mjs", "**/*.cjs",
                   "**/*.json", "**/*.astro", "**/*.svelte", "**/*.css"]

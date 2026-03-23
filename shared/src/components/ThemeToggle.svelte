@@ -8,7 +8,15 @@ $effect(() => {
 function toggle() {
   isDark = !isDark;
   document.documentElement.classList.toggle('dark', isDark);
-  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  const theme = isDark ? 'dark' : 'light';
+
+  document.cookie = `theme=${theme}; path=/; max-age=31536000; SameSite=Lax`;
+
+  try {
+    localStorage.setItem('theme', theme);
+  } catch {
+    // Ignore storage failures in restricted browsing contexts.
+  }
 }
 </script>
 
