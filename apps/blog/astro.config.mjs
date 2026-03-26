@@ -74,8 +74,34 @@ export default defineConfig({
     algorithm: 'SHA-256',
   },
 
+  // Cloudflare Workers does not support Sharp — use noop image service.
+  // When deploying to Node.js/Vercel/Netlify, replace with the Sharp service
+  // and configure codec-specific options (new in Astro 6.1):
+  //
+  // image: {
+  //   service: {
+  //     entrypoint: 'astro/assets/services/sharp',
+  //     config: {
+  //       webp: { effort: 6, alphaQuality: 90 },
+  //       avif: { effort: 4, chromaSubsampling: '4:2:0' },
+  //       jpeg: { mozjpeg: true },
+  //       png:  { compressionLevel: 8 },
+  //     },
+  //   },
+  // },
   image: {
     service: { entrypoint: 'astro/assets/services/noop' },
+  },
+
+  // SmartyPants typography (options object new in Astro 6.1).
+  // Converts ASCII punctuation to proper typographic characters in Markdown/MDX.
+  markdown: {
+    smartypants: {
+      dashes: 'oldschool', // -- → en-dash, --- → em-dash
+      ellipses: true, // ... → …
+      backticks: false, // keep backticks as-is (used in code)
+      quotes: true, // "hello" → "hello"
+    },
   },
 
   vite: {

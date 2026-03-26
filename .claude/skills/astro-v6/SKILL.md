@@ -196,3 +196,64 @@ Astro v6 requires Node >= 22.12.0. Older versions are not supported.
 - **Live Content Collections** - Real-time data without rebuild
 - **Content Security Policy** - Automatic CSP headers
 - **Vite Environment API** - Dev server = production runtime
+
+## Astro 6.1 — New APIs
+
+### Sharp Image Service Config
+
+Codec-specific encoder options, new in 6.1. Only for `astro/assets/services/sharp` (not `noop`):
+
+```javascript
+image: {
+  service: {
+    entrypoint: 'astro/assets/services/sharp',
+    config: {
+      webp: { effort: 6, alphaQuality: 90 },
+      avif: { effort: 4, chromaSubsampling: '4:2:0' },
+      jpeg: { mozjpeg: true },
+      png:  { compressionLevel: 8 },
+    },
+  },
+},
+```
+
+Per-image `quality` prop still takes precedence over `config` defaults.
+Note: Cloudflare Workers does not support Sharp — use `noop` service there.
+
+### SmartyPants Options Object
+
+`markdown.smartypants` now accepts an options object (previously only `true/false`):
+
+```javascript
+markdown: {
+  smartypants: {
+    dashes: 'oldschool', // -- → en-dash, --- → em-dash
+    ellipses: true,      // ... → …
+    backticks: false,    // keep backticks as-is (used in code blocks)
+    quotes: true,        // "hello" → "hello"
+  },
+},
+```
+
+### i18n `fallbackRoutes` in Integrations
+
+When `fallbackType: 'rewrite'` is set, integrations can read fallback routes via the `astro:routes:resolved` hook:
+
+```typescript
+{
+  name: 'my-integration',
+  hooks: {
+    'astro:routes:resolved': ({ routes }) => {
+      const fallbacks = routes.filter(r => r.fallbackRoutes?.length);
+    },
+  },
+}
+```
+
+### Notable Bugfixes (6.1.0)
+
+- **CSRF `checkOrigin`** — reads `X-Forwarded-Proto` behind reverse proxies; consistent with production
+- **Cloudflare `server:defer`** — dev crash `serverIslandNameMap.get is not a function` fixed
+- **Middleware HMR** — middleware changes now detected in dev server
+- **Vite 8 conflict** — Astro warns if Vite 8 is hoisted (conflicts with Astro's Vite 7 requirement)
+- **ClientRouter** — animations skipped when browser provides native visual transition (e.g. swipe)
