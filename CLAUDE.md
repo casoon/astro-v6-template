@@ -141,6 +141,7 @@ Detailed development guidelines are available as skills under `.claude/skills/`:
 - **mdx-content** — Content Collections, Loader API, blog posts, RSS
 - **seo** — OG images, PageSEO component, sitemap, robots.txt, JSON-LD
 - **local-business-seo** — LocalBusiness JSON-LD, geo meta tags, areaServed, regionale Keywords
+- **ui-design** — 7 core UI design rules: no pure black/white, 8px spacing, max 2 fonts, 60/30/10 color, type hierarchy, line length, visual hierarchy
 - **wcag-a11y** — WCAG 2.2 AA patterns: landmarks, forms, focus, contrast, ARIA, motion, dialogs, checklists
 - **darkmode** — Dark mode implementation: class-based toggle, cookie persistence, color guidelines, FOUC prevention
 - **performance** — Core Web Vitals, image optimization, content-visibility, scroll-driven animations
