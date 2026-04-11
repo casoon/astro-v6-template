@@ -32,13 +32,41 @@ export default defineConfig({
       compilerOptions: { runes: true },
     }),
     astroSitemap({
+      // i18n: generate hreflang alternate links for every page
       i18n: {
         defaultLocale: 'en',
-        locales: { en: 'en', de: 'de' },
+        locales: { en: 'en', de: 'de-DE' },
+      },
+
+      // audit: warn on empty sitemap, error on duplicate URLs
+      audit: {
+        warnOnEmpty: true,
+        errorOnDuplicates: false,
       },
     }),
     crawlerPolicy({
+      // citationFriendly: allow search engines + AI citation, block AI training
+      preset: 'citationFriendly',
       sitemaps: [`${env.PUBLIC_SITE_URL}/sitemap.xml`],
+
+      // contentSignals: machine-readable hints for AI crawlers
+      contentSignals: {
+        search: true,
+        aiInput: true,
+        aiTrain: false,
+      },
+
+      // llmsTxt: generate /llms.txt with a human-readable AI content policy
+      output: {
+        robotsTxt: true,
+        llmsTxt: true,
+      },
+
+      // env: lock crawlers out on non-production deployments
+      env: {
+        staging: { preset: 'lockdown' },
+        preview: { preset: 'lockdown' },
+      },
     }),
     speedMeasure(),
     postAudit({
