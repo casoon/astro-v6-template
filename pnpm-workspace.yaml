@@ -18,7 +18,7 @@ catalog:
   "@axe-core/playwright": ^4.11.1
   "@casoon/astro-crawler-policy": ^0.1.1
   "@casoon/astro-post-audit": ^0.2.6
-  "@casoon/astro-sitemap": ^0.2.1
+  "@casoon/astro-sitemap": ^0.2.2
   "@casoon/astro-speed-measure": ^0.2.0
 
   # Tailwind v4
@@ -27,7 +27,7 @@ catalog:
   "@tailwindcss/vite": ^4.2.2
 
   # Svelte 5
-  svelte: ^5.55.2
+  svelte: ^5.55.3
   "@sveltejs/vite-plugin-svelte": ^6.2.1
   lucide-svelte: ^0.577.0
 
