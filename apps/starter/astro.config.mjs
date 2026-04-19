@@ -70,7 +70,7 @@ export default defineConfig({
     }),
     speedMeasure(),
     postAudit({
-      throwOnError: false,
+      throwOnError: true,
       rules: {
         filters: { exclude: ['404.html'] },
         canonical: { self_reference: true },
