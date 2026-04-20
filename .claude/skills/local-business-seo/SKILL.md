@@ -314,7 +314,112 @@ test('service pages have areaServed schema', async ({ page }) => {
 });
 ```
 
-## 6. i18n-Hinweise für lokale SEO
+## 6. Ranking-Strategie: Was wirklich funktioniert
+
+Erfolgreiche lokale Seiten belegen viele Keywords in den ersten 10–20 Ergebnissen — nicht durch Black-Hat-Taktiken, sondern durch drei konsequent durchgezogene Grundprinzipien:
+
+### 6.1 Lokale Substanz, nicht lokale Keyword-Dichte
+
+Der Ort erscheint auf Service-Seiten 20–32x — aber nie als bloße Wiederholung. Die Ortsreferenz ist immer an echten Aussagen verankert:
+
+> "Webentwicklung aus Rostock für Unternehmen in der Region"
+
+Das unterscheidet sich von Keyword-Stuffing, weil der Satz **auch ohne den Ortsnamen Sinn ergibt**. Test: Streiche den Ort — bleibt eine sinnvolle Aussage? Dann ist es echte Substanz.
+
+### 6.2 Prozesstiefe als Vertrauenssignal
+
+Die stärksten Seiten erklären nicht nur *was* der Betreiber macht, sondern *wie* — mit konkreten Prozessbeschreibungen, Phaseneinteilungen und realen Entscheidungspunkten. Das zeigt Kompetenz und hält Nutzer auf der Seite (→ niedriger Bounce, höhere Verweildauer).
+
+**Umsetzung:**
+- 5-Schritt-Prozesse mit Zwischentiteln
+- Phase 1 / Phase 2 / Phase 3 Struktur mit realen Entscheidungspunkten
+- Konkretes statt Allgemeines: "Wir prüfen Ihr CMS auf..." statt "Wir analysieren Ihre Website"
+
+**Content-Tiefe:** Ziel ~4.000 Wörter pro Service-Seite, starke Seiten erreichen 6.000–8.000 Wörter.
+
+### 6.3 Breites Service-Spektrum mit einzelnen Landing-Pages
+
+Jede Leistung bekommt eine **eigene URL** mit eigenem Title-Tag und eigener Meta-Description. Das erzeugt viele Einstiegspunkte für verschiedene Suchanfragen und stärkt die interne Verlinkung.
+
+```
+/webentwicklung        → eigene H1, eigener Title, eigene Description
+/seo                   → eigene H1, eigener Title, eigene Description
+/ecommerce             → eigene H1, eigener Title, eigene Description
+/cloud                 → eigene H1, eigener Title, eigene Description
+```
+
+Nicht: eine `/leistungen`-Seite mit Abschnitten für alle Dienste.
+
+### 6.4 Weitere Ranking-Hebel
+
+- **Schema.org LocalBusiness-Markup** — wenn Adresse + Kontakt vorhanden sind (→ Abschnitt 1)
+- **BreadcrumbList-Schema** — auf allen Unterseiten für bessere SERP-Darstellung
+- **FAQ-Schema** — auf Service-Seiten mit häufigen Fragen zum Dienst
+- **Heading-Hierarchie flach halten** — nicht zu viele gleichrangige H2; eine klare H1 → 2–4 H2 → H3-Details
+- **Interne Verlinkung** — jede Service-Seite verlinkt auf verwandte Dienste + Homepage
+
+### 6.5 BreadcrumbList-Schema
+
+```astro
+---
+// BreadcrumbSchema.astro
+export interface Props {
+  items: { name: string; url: string }[];
+}
+
+const { items } = Astro.props;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": items.map((item, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "name": item.name,
+    "item": item.url,
+  })),
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+```
+
+```astro
+<BreadcrumbSchema items={[
+  { name: "Home", url: "https://casoon.dev" },
+  { name: "Webentwicklung", url: "https://casoon.dev/webentwicklung" },
+]} />
+```
+
+### 6.6 FAQ-Schema
+
+```astro
+---
+// FaqSchema.astro
+export interface Props {
+  questions: { question: string; answer: string }[];
+}
+
+const { questions } = Astro.props;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": questions.map((q) => ({
+    "@type": "Question",
+    "name": q.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": q.answer,
+    },
+  })),
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+```
+
+## 7. i18n-Hinweise für lokale SEO
 
 Bei mehrsprachigen Seiten (de/en):
 
