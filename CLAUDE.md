@@ -115,10 +115,6 @@ See `accessibility-audit` skill. Automated testing via `@axe-core/playwright` in
 - No `set:html` without sanitization
 - API routes: always try/catch + Zod schema
 
-## Claude Skills
-
-Reusable development skills (Astro, Tailwind, Svelte, SEO, Playwright, etc.) are maintained separately at [casoon/ai-agent-config](https://github.com/casoon/ai-agent-config).
-
 ## Webspire MCP
 
 MCP server configured in `.claude/mcp.json` (`@webspire/mcp`). See `webspire` skill for patterns, snippets, and token integration.
