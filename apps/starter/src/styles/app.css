@@ -7,3 +7,5 @@
 
 /* Scan shared package for Tailwind classes (no alias support, must be relative) */
 @source "../../../../shared/src";
+
+@plugin "tailwindcss-animate";

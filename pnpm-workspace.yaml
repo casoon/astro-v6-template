@@ -25,6 +25,7 @@ catalog:
   tailwindcss: ^4.3.0
   "@tailwindcss/typography": ^0.5.19
   "@tailwindcss/vite": ^4.3.0
+  tailwindcss-animate: ^1.0.7
 
   # Svelte 5
   svelte: ^5.55.7

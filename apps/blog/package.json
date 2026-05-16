@@ -26,6 +26,7 @@
     "@fontsource/lora": "catalog:",
     "@tailwindcss/typography": "catalog:",
     "@tailwindcss/vite": "catalog:",
+    "tailwindcss-animate": "catalog:",
     "astro": "catalog:",
     "svelte": "catalog:",
     "tailwindcss": "catalog:",
