@@ -91,7 +91,7 @@ astro-v6-template/
 ## Prerequisites
 
 - **Node.js** >= 22.12.0
-- **pnpm** >= 10.0.0
+- **pnpm** >= 11.0.0
 
 ## Quick Start
 
