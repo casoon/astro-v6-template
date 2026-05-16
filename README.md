@@ -154,6 +154,19 @@ Blog template featuring:
 - Tag display
 - Responsive post layout
 
+## Adding Another App
+
+Use `apps/starter` or `apps/blog` as the starting point, depending on whether the new project is page-focused or content-focused.
+
+1. Create `apps/<name>/` with its own `package.json`, `astro.config.mjs`, `tsconfig.json`, `src/` and `public/` folders.
+2. Set the package name to `@astro-v6/<name>` and add scripts for `dev`, `build`, `preview`, `type-check`, `clean` and `deploy`.
+3. Import shared styles from `@astro-v6/shared/styles/global.css` in the app layout, and import shared components, layouts, SEO helpers and utilities via `@astro-v6/shared/*`.
+4. Copy the app-level `tsconfig.json` path aliases so `@/*` points to local `src/*` and `@astro-v6/shared/*` points to `../../shared/src/*`.
+5. Configure `astro.config.mjs` with the same core integrations: Tailwind, Svelte, `@casoon/astro-site-files`, `@casoon/astro-post-audit` and `@casoon/astro-speed-measure`.
+6. Choose a unique dev port if the app should run alongside the existing apps.
+7. Add root scripts such as `dev:<name>`, `build:<name>` and `preview:<name>` when the app should be addressable from the workspace root.
+8. Add an optional Playwright project in `playwright.config.ts` plus tests under `e2e/<name>/` when the app needs CI browser coverage.
+
 ## Shared Package (`@astro-v6/shared`)
 
 All shared code lives in `shared/`:

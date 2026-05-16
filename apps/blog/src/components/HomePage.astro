@@ -1,5 +1,7 @@
 ---
+import Card from '@astro-v6/shared/components/Card.astro';
 import Navbar from '@astro-v6/shared/components/Navbar.astro';
+import Tag from '@astro-v6/shared/components/Tag.astro';
 import ThemeToggle from '@astro-v6/shared/components/ThemeToggle.svelte';
 import BaseLayout from '@astro-v6/shared/layouts/BaseLayout.astro';
 import PageSEO from '@astro-v6/shared/seo/PageSEO.astro';
@@ -50,7 +52,7 @@ const dateLocale = isGerman ? 'de-DE' : 'en-US';
     <ul class="flex list-none flex-col gap-4 p-0" role="list">
       {posts.map((post: BlogPost) => (
         <li>
-          <a href={`${postPathPrefix}/${post.id}`} class="block rounded-xl border border-border bg-surface p-8 no-underline text-inherit transition-all hover:border-accent hover:shadow-md">
+          <Card href={`${postPathPrefix}/${post.id}`}>
             <time datetime={post.data.date.toISOString()} class="mb-1 block text-xs text-text-secondary">
               {post.data.date.toLocaleDateString(dateLocale, { year: 'numeric', month: 'long', day: 'numeric' })}
             </time>
@@ -59,11 +61,11 @@ const dateLocale = isGerman ? 'de-DE' : 'en-US';
             {post.data.tags.length > 0 && (
               <div class="mt-3 flex flex-wrap gap-1">
                 {post.data.tags.map((tag: string) => (
-                  <span class="rounded-full bg-bg-secondary px-2 py-0.5 text-xs text-text-secondary">{tag}</span>
+                  <Tag>{tag}</Tag>
                 ))}
               </div>
             )}
-          </a>
+          </Card>
         </li>
       ))}
     </ul>
