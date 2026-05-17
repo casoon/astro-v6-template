@@ -10,6 +10,7 @@ import { env } from './src/env.ts';
 import { getBlogSitemapEntries } from './src/utils/blog-rss.js';
 
 export default defineConfig({
+  trailingSlash: 'always',
   site: env.PUBLIC_SITE_URL,
   adapter: cloudflare(),
 

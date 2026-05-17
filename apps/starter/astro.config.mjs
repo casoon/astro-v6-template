@@ -8,6 +8,7 @@ import { defineConfig } from 'astro/config';
 import { env } from './src/env.ts';
 
 export default defineConfig({
+  trailingSlash: 'always',
   site: env.PUBLIC_SITE_URL,
   adapter: cloudflare(),
 
