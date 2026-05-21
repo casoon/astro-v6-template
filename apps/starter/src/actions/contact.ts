@@ -9,9 +9,7 @@ export const submitContactForm = defineAction({
     subject: z.string().min(1, { error: 'Subject is required' }).max(200),
     message: z.string().min(1, { error: 'Message is required' }).max(5000),
   }),
-  handler: async (input) => {
-    // Production: send via Resend, Postmark, SES, or save to D1/KV
-    console.log('[contact]', input.email, input.subject);
+  handler: async () => {
     return { message: 'Message sent successfully.' };
   },
 });

@@ -91,8 +91,13 @@ See `accessibility-audit` skill. Automated testing via `@axe-core/playwright` in
 ## Astro Actions
 
 - Located in `src/actions/` with `index.ts` as re-export hub
-- Split into separate files: `contact.ts`, `newsletter.ts`, `feedback.ts`
-- Convention: `export const server = { submitContactForm, subscribeNewsletter, submitFeedback }`
+- Contact form handling lives in `contact.ts`
+- Convention: `export const server = { submitContactForm }`
+
+## Site Files
+
+- Use `@casoon/astro-site-files` for sitemap, robots and other site meta-files
+- This replaces the older split packages `@casoon/astro-sitemap` and `@casoon/astro-crawler-policy`
 
 ## E2E Tests
 
@@ -111,9 +116,8 @@ See `accessibility-audit` skill. Automated testing via `@axe-core/playwright` in
 - Content Security Policy (CSP) with SHA-256 algorithm
 - Server-side sessions via Cloudflare KV (`sessionKVBindingName: 'SESSION'`)
 - `checkOrigin: true` for CSRF protection
-- Zod validation for all inputs (env, forms, API)
+- Zod validation for all inputs (env, forms)
 - No `set:html` without sanitization
-- API routes: always try/catch + Zod schema
 
 ## Webspire MCP
 

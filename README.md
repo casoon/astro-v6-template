@@ -54,14 +54,14 @@ This template succeeds [astro-v5-template](https://github.com/casoon/astro-v5-te
 - **Svelte 5** — Runes API ($state, $derived) for reactive islands
 - **i18n** — Multi-language support (en/de) with Astro i18n routing
 - **OG Images** — Auto-generated Open Graph images at build time (Satori + resvg)
-- **Astro Actions** — Server-side form handling (contact, newsletter, feedback)
+- **Astro Actions** — Server-side contact form handling
 - **CSP** — Content Security Policy with SHA-256 nonces
 - **Build Metrics** — [`@casoon/astro-speed-measure`](https://github.com/casoon/astro-speed-measure) for build performance tracking
 - **Post-Build Audit** — [`@casoon/astro-post-audit`](https://github.com/casoon/astro-post-audit) for SEO, link and WCAG checks after every build
 - **Secret Scanning** — [`@casoon/nosecrets`](https://github.com/casoon/nosecrets) in pre-commit plus manual workspace scans
 - **Playwright** — E2E tests for both apps with axe-core a11y scanning
 - **Biome** — Single tool for linting + formatting (replaces ESLint + Prettier)
-- **Zod v4** — Runtime validation for env, forms, API
+- **Zod v4** — Runtime validation for env and forms
 - **pnpm Workspaces** — Monorepo with catalog for centralized dependency management
 - **Dark Mode** — System preference + manual toggle
 - **Site Files** — [`@casoon/astro-site-files`](https://github.com/casoon/astro-site-files) generates `robots.txt`, `sitemap.xml`, `llms.txt`, `security.txt` and `humans.txt` at build time
@@ -135,8 +135,6 @@ pnpm dev:blog
 Landing page featuring:
 - Hero section with feature grid
 - Contact form with Astro Actions + Zod validation
-- Newsletter subscription and feedback actions
-- API route (`/api/contact`)
 - i18n (English + German) with language switcher
 - OG image generation per page and locale
 - Dark mode toggle
@@ -301,6 +299,8 @@ Checks include canonical URLs, meta descriptions, Open Graph tags, heading hiera
 ## Site Files
 
 Both apps use [`@casoon/astro-site-files`](https://github.com/casoon/astro-site-files) to generate all standard site meta-files at build time:
+
+`@casoon/astro-site-files` replaces the older split packages `@casoon/astro-sitemap` and `@casoon/astro-crawler-policy`.
 
 ```js
 // astro.config.mjs
