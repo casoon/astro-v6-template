@@ -12,6 +12,8 @@ export default defineConfig({
   site: env.PUBLIC_SITE_URL,
   adapter: cloudflare(),
 
+  devToolbar: { enabled: false },
+
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'de'],
