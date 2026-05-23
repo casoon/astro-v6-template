@@ -9,13 +9,13 @@ allowBuilds:
   workerd: true
 
 catalog:
-  # Astro v6 (stable)
-  astro: ^6.3.7
+  # Astro v7 (alpha) — EXPERIMENT: Vite 8
+  astro: 7.0.0-alpha.1
   "@astrojs/check": ^0.9.9
-  "@astrojs/cloudflare": ^13.5.4
-  "@astrojs/mdx": ^5.0.6
+  "@astrojs/cloudflare": 14.0.0-alpha.0
+  "@astrojs/mdx": 6.0.0-alpha.0
   "@astrojs/rss": ^4.0.18
-  "@astrojs/svelte": ^8.1.1
+  "@astrojs/svelte": 9.0.0-alpha.0
   "@axe-core/playwright": ^4.11.3
   "@casoon/astro-post-audit": ^0.2.11
   "@casoon/astro-site-files": ^0.1.6
