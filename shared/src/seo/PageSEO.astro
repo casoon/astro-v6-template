@@ -12,6 +12,7 @@ export interface Props {
   noIndex?: boolean;
   articleAuthor?: string;
   articleDate?: Date;
+  articleModified?: Date;
 }
 
 const {
@@ -25,6 +26,7 @@ const {
   noIndex = false,
   articleAuthor,
   articleDate,
+  articleModified,
 } = Astro.props;
 
 const resolvedCanonical = canonicalUrl || Astro.url.href;
@@ -40,6 +42,7 @@ const jsonLd =
         ...(ogImage && { image: ogImage }),
         ...(articleAuthor && { author: { '@type': 'Person', name: articleAuthor } }),
         ...(articleDate && { datePublished: articleDate.toISOString() }),
+        ...(articleDate && { dateModified: (articleModified ?? articleDate).toISOString() }),
       }
     : {
         '@context': 'https://schema.org',

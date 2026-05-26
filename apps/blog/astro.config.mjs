@@ -6,8 +6,23 @@ import siteFiles from '@casoon/astro-site-files';
 import speedMeasure from '@casoon/astro-speed-measure';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
+import rehypeSlug from 'rehype-slug';
+import remarkGfm from 'remark-gfm';
 import { env } from './src/env.ts';
+import { rehypeCheckboxLabel } from './src/plugins/rehype-checkbox-label.js';
+import { rehypeCodeLanguage } from './src/plugins/rehype-code-language.js';
 import { getBlogSitemapEntries } from './src/utils/blog-rss.js';
+
+/** Shiki transformer: reads title="..." from fence meta and sets data-title on <pre> */
+const codeBlockTitleTransformer = {
+  name: 'code-block-title',
+  pre(node) {
+    const meta = this.options?.meta?.__raw ?? '';
+    if (!meta) return;
+    const m = meta.match(/title="([^"]+)"|title='([^']+)'/);
+    if (m) node.properties['data-title'] = m[1] ?? m[2];
+  },
+};
 
 export default defineConfig({
   trailingSlash: 'always',
@@ -28,7 +43,14 @@ export default defineConfig({
     svelte({
       compilerOptions: { runes: true },
     }),
-    mdx(),
+    mdx({
+      remarkPlugins: [remarkGfm],
+      rehypePlugins: [rehypeSlug, rehypeCodeLanguage, rehypeCheckboxLabel],
+      shikiConfig: {
+        wrap: true,
+        transformers: [codeBlockTitleTransformer],
+      },
+    }),
     siteFiles({
       sitemap: {
         i18n: {
@@ -52,6 +74,9 @@ export default defineConfig({
         },
       },
       robots: {},
+      audit: {
+        disable: ['sitemap/duplicate-urls'],
+      },
       llms: {
         title: env.PUBLIC_SITE_NAME,
         description: 'A blog template built with Astro v6, MDX and Content Collections.',
@@ -77,7 +102,18 @@ export default defineConfig({
       preset: 'standard',
       failOn: 'errors',
       hints: { sourceFiles: true },
-      rules: { filters: { exclude: ['blog/index.html', '404.html'] } },
+      rules: {
+        filters: { exclude: ['blog/index.html', '404.html'] },
+        canonical: { self_reference: true },
+        opengraph: { require_og_image: true },
+        a11y: { require_skip_link: true },
+        structured_data: { check_json_ld: true },
+        content_quality: {
+          detect_duplicate_titles: true,
+          detect_duplicate_descriptions: true,
+        },
+        links: { check_fragments: true },
+      },
     }),
   ],
 
@@ -95,32 +131,17 @@ export default defineConfig({
   },
 
   // Cloudflare Workers does not support Sharp — use noop image service.
-  // When deploying to Node.js/Vercel/Netlify, replace with the Sharp service
-  // and configure codec-specific options (new in Astro 6.1):
-  //
-  // image: {
-  //   service: {
-  //     entrypoint: 'astro/assets/services/sharp',
-  //     config: {
-  //       webp: { effort: 6, alphaQuality: 90 },
-  //       avif: { effort: 4, chromaSubsampling: '4:2:0' },
-  //       jpeg: { mozjpeg: true },
-  //       png:  { compressionLevel: 8 },
-  //     },
-  //   },
-  // },
   image: {
     service: { entrypoint: 'astro/assets/services/noop' },
   },
 
   // SmartyPants typography (options object new in Astro 6.1).
-  // Converts ASCII punctuation to proper typographic characters in Markdown/MDX.
   markdown: {
     smartypants: {
-      dashes: 'oldschool', // -- → en-dash, --- → em-dash
-      ellipses: true, // ... → …
-      backticks: false, // keep backticks as-is (used in code)
-      quotes: true, // "hello" → "hello"
+      dashes: 'oldschool',
+      ellipses: true,
+      backticks: false,
+      quotes: true,
     },
   },
 

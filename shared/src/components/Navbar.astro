@@ -18,10 +18,8 @@ function normalizePath(path: string): string {
 }
 ---
 
-<nav
-  class="sticky top-0 z-[var(--z-sticky)] h-[var(--nav-height)] border-b border-border bg-[var(--color-surface)] backdrop-blur-[12px]"
-  aria-label="Main navigation"
->
+<header class="sticky top-0 z-[var(--z-sticky)] h-[var(--nav-height)] border-b border-border bg-[var(--color-surface)] backdrop-blur-[12px]">
+<nav aria-label="Main navigation" class="h-full">
   <div class="relative mx-auto flex h-full max-w-[72rem] items-center px-[var(--space-lg)]">
     <a href="/" class="text-lg font-bold text-text no-underline">{siteName}</a>
 
@@ -54,3 +52,4 @@ function normalizePath(path: string): string {
     </div>
   </div>
 </nav>
+</header>

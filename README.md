@@ -69,8 +69,6 @@ This template succeeds [astro-v5-template](https://github.com/casoon/astro-v5-te
 - **WCAG 2.1 AA** — Two-layer accessibility: axe-core runtime checks + static HTML audit
 - **TypeScript Strict** — Fully typed throughout
 
-> **Tip:** For additional ready-made Tailwind v4 components (buttons, cards, modals, navigation and more), check out [webspire.de](https://www.webspire.de) — a component library built on Tailwind v4 that pairs well with this template.
-
 ## Structure
 
 ```
@@ -143,14 +141,15 @@ Landing page featuring:
 ### Blog
 
 Blog template featuring:
-- MDX support
-- Content Collections (Loader API)
-- Automatic RSS feed (`/rss.xml`) via `@astrojs/rss` page endpoint
+- MDX support with remark-gfm, rehype-slug, code block language labels and Shiki title transformer
+- Content Collections (Loader API) with schema fields for `readTime`, `articleType`, `series` and `seriesOrder`
+- Table of Contents — sticky sidebar on desktop with IntersectionObserver scrollspy
+- Reading progress bar — thin indicator at the top of every post
+- Enriched RSS feed (`/rss.xml`) with `article:readingTime`, `article:series` and OG image enclosures
 - Automatic sitemap (`/sitemap.xml`) with i18n hreflang via `@casoon/astro-site-files`
 - i18n (English + German) with language switcher
 - OG image generation per page and blog post
 - Tag display
-- Responsive post layout
 
 ## Adding Another App
 
@@ -170,7 +169,7 @@ Use `apps/starter` or `apps/blog` as the starting point, depending on whether th
 All shared code lives in `shared/`:
 
 - **Styles** — Design tokens (OKLCH), global CSS, Tailwind theme
-- **Components** — `Navbar.astro`, `ThemeToggle.svelte`
+- **Components** — `Navbar.astro`, `ThemeToggle.svelte`, `TableOfContents.svelte`, `ReadingProgress.svelte`
 - **Layouts** — `BaseLayout.astro` (HTML base with skip link)
 - **SEO** — `PageSEO.astro` (meta tags, Open Graph, JSON-LD)
 - **Utilities** — `env.ts`, `api.ts`, `cn.ts`, `i18n.ts`, `og.ts`
@@ -252,49 +251,25 @@ The template ships with comprehensive rules enabled out of the box:
 ```js
 // astro.config.mjs
 postAudit({
+  preset: 'standard',
   failOn: 'errors',
   hints: { sourceFiles: true },
   rules: {
     filters: { exclude: ['404.html'] },
     canonical: { self_reference: true },
-    headings: { no_skip: true },
-    html_basics: { meta_description_required: true },
-    opengraph: {
-      require_og_title: true,
-      require_og_description: true,
-      require_og_image: true,
-    },
-    a11y: {
-      require_skip_link: true,
-      img_alt_required: true,
-      button_name_required: true,
-      label_for_required: true,
-    },
+    opengraph: { require_og_image: true },
+    a11y: { require_skip_link: true },
     links: { check_fragments: true },
-    sitemap: {
-      require: true,
-      canonical_must_be_in_sitemap: true,
-      entries_must_exist_in_dist: true,
-    },
-    security: { check_target_blank: true },
-    hreflang: {
-      check_hreflang: true,
-      require_x_default: true,
-      require_self_reference: true,
-      require_reciprocal: true,
-    },
-    assets: { check_broken_assets: true },
     structured_data: { check_json_ld: true },
     content_quality: {
       detect_duplicate_titles: true,
       detect_duplicate_descriptions: true,
-      detect_duplicate_h1: true,
     },
   },
 }),
 ```
 
-Checks include canonical URLs, meta descriptions, Open Graph tags, heading hierarchy, broken links with fragment validation, sitemap cross-referencing, `target="_blank"` security, hreflang reciprocal validation, WCAG heuristics (skip link, alt text, button text, form labels), broken asset references, JSON-LD validity and duplicate content detection. Use `failOn: 'warnings'` for stricter CI enforcement.
+Checks include canonical self-references, Open Graph image presence, skip navigation link, fragment link integrity, JSON-LD validity and duplicate title/description detection — on top of everything the `standard` preset covers. Use `failOn: 'warnings'` for stricter CI enforcement.
 
 ## Site Files
 
@@ -321,7 +296,7 @@ siteFiles({
 
 Generated files: `robots.txt`, `sitemap.xml` (with i18n hreflang), `llms.txt`. Optional: `/.well-known/security.txt`, `humans.txt`.
 
-The blog RSS feed is generated as a prerendered page endpoint (`src/pages/rss.xml.ts`) using `@astrojs/rss` + `getCollection()`.
+The blog RSS feed is generated as a prerendered page endpoint (`src/pages/rss.xml.ts`) using `@astrojs/rss` + `getCollection()`. Posts are sorted by `lastmod ?? date` and enriched with `article:readingTime`, `article:series` and OG image `<enclosure>` elements via a custom `article:` XML namespace.
 
 ## Accessibility (WCAG 2.1 AA)
 
@@ -355,7 +330,7 @@ Tests are located in `e2e/starter/a11y.spec.ts` and `e2e/blog/a11y.spec.ts`.
 ### Built-in Accessibility Features
 
 - **Skip to content** link in `BaseLayout`
-- **Semantic HTML** — `<nav>`, `<main>`, `<article>`, `<section>` throughout
+- **Semantic HTML** — `<header>`, `<nav>`, `<main>`, `<article>`, `<section>` throughout
 - **ARIA attributes** — `aria-label`, `aria-current`, `role` where needed
 - **Link underlines** — Always visible, not just on hover
 - **Focus indicators** — Visible focus rings on all interactive elements
@@ -428,7 +403,7 @@ This template leverages the key features of Astro v6:
 
 This template includes a [Claude Code](https://docs.anthropic.com/en/docs/claude-code) setup for AI-assisted development:
 
-- **MCP Servers** (`.claude/mcp.json`) — Pre-configured MCP servers for context7 documentation lookup, Cloudflare tooling, and Webspire UI patterns
+- **MCP Servers** (`.claude/mcp.json`) — Pre-configured MCP servers for context7 documentation lookup and Cloudflare tooling
 - **Project instructions** (`CLAUDE.md`) — Architecture rules, code conventions, and dependency constraints
 
 For the full set of reusable Claude Code skills (Astro, Tailwind, Svelte, SEO, Playwright, and more), see [casoon/ai-agent-config](https://github.com/casoon/ai-agent-config).

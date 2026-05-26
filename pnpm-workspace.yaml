@@ -17,8 +17,8 @@ catalog:
   "@astrojs/rss": ^4.0.18
   "@astrojs/svelte": ^8.1.1
   "@axe-core/playwright": ^4.11.3
-  "@casoon/astro-post-audit": ^0.2.11
-  "@casoon/astro-site-files": ^0.1.6
+  "@casoon/astro-post-audit": ^0.3.2
+  "@casoon/astro-site-files": ^0.3.0
   "@casoon/astro-speed-measure": ^0.2.0
 
   # Tailwind v4
@@ -34,6 +34,9 @@ catalog:
 
   # Core
   gray-matter: ^4.0.3
+  rehype-slug: ^6.0.0
+  remark-gfm: ^4.0.1
+  unist-util-visit: ^5.1.0
   tsx: ^4.22.3
   typescript: ^6.0.3
   zod: ^4.4.3
