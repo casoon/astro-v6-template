@@ -64,7 +64,7 @@ export default defineConfig({
     postAudit({
       preset: 'standard',
       failOn: 'errors',
-      progress: true,
+      progress: 'verbose',
       hints: { sourceFiles: true },
       rules: { filters: { exclude: ['404.html'] } },
     }),
