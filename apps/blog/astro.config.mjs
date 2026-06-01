@@ -74,7 +74,7 @@ export default defineConfig({
           errorOnDuplicates: false,
         },
       },
-      robots: {},
+      robots: { preset: 'seoOnly' },
       audit: {
         disable: ['sitemap/duplicate-urls'],
       },
@@ -98,7 +98,7 @@ export default defineConfig({
         ],
       },
     }),
-    structuredData(),
+    structuredData({ generateMeta: true, siteName: env.PUBLIC_SITE_NAME }),
     speedMeasure(),
     postAudit({
       preset: 'standard',

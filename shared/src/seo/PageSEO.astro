@@ -7,8 +7,6 @@ export interface Props {
   canonicalUrl?: string;
   ogImage?: string;
   ogType?: 'website' | 'article';
-  twitterCard?: 'summary' | 'summary_large_image';
-  /** Robots meta content, e.g. "noindex, follow" or "noindex, nofollow" */
   robots?: string;
   /** @deprecated Use robots prop instead */
   noIndex?: boolean;
@@ -23,7 +21,6 @@ const {
   canonicalUrl,
   ogImage,
   ogType = 'website',
-  twitterCard = 'summary_large_image',
   robots,
   noIndex = false,
   articleAuthor,
@@ -37,22 +34,7 @@ const useArticleSchema = ogType === 'article' && !!articleDate && !!ogImage;
 ---
 
 {robots ? <meta name="robots" content={robots} /> : noIndex && <meta name="robots" content="noindex, nofollow" />}
-<link rel="canonical" href={resolvedCanonical} />
 
-<!-- Open Graph -->
-<meta property="og:title" content={title} />
-<meta property="og:description" content={description} />
-<meta property="og:type" content={ogType} />
-<meta property="og:url" content={resolvedCanonical} />
-{ogImage && <meta property="og:image" content={ogImage} />}
-
-<!-- Twitter -->
-<meta name="twitter:card" content={twitterCard} />
-<meta name="twitter:title" content={title} />
-<meta name="twitter:description" content={description} />
-{ogImage && <meta name="twitter:image" content={ogImage} />}
-
-<!-- JSON-LD -->
 {useArticleSchema ? (
   <ArticleSchema
     title={title}
@@ -63,5 +45,5 @@ const useArticleSchema = ogType === 'article' && !!articleDate && !!ogImage;
     imageUrl={ogImage!}
   />
 ) : (
-  <Schema item={{ '@type': 'WebPage', name: title, description, url: resolvedCanonical }} />
+  <Schema item={{ '@type': 'WebPage', name: title, description, url: resolvedCanonical, ...(ogImage && { image: ogImage }) }} />
 )}

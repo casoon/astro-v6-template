@@ -38,7 +38,7 @@ export default defineConfig({
           errorOnDuplicates: false,
         },
       },
-      robots: {},
+      robots: { preset: 'seoOnly' },
       llms: {
         title: env.PUBLIC_SITE_NAME,
         description: 'Astro v6 starter with Tailwind v4, Svelte 5 and Cloudflare.',
@@ -59,7 +59,7 @@ export default defineConfig({
         ],
       },
     }),
-    structuredData(),
+    structuredData({ generateMeta: true, siteName: env.PUBLIC_SITE_NAME }),
     speedMeasure(),
     postAudit({
       preset: 'standard',
