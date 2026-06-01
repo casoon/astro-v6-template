@@ -6,7 +6,7 @@ import ThemeToggle from '@astro-v6/shared/components/ThemeToggle.svelte';
 import BaseLayout from '@astro-v6/shared/layouts/BaseLayout.astro';
 import PageSEO from '@astro-v6/shared/seo/PageSEO.astro';
 import { localePath } from '@astro-v6/shared/utils/i18n';
-import { OrganizationSchema, WebSiteSchema } from '@casoon/astro-structured-data/components';
+import { env } from '@/env';
 import { t } from '@/i18n';
 import '@/styles/app.css';
 
@@ -19,17 +19,13 @@ const links = [
 ];
 ---
 
-<BaseLayout title={tr('home.title')} description={tr('home.description')} lang={locale}>
+<BaseLayout title={tr('home.title')} description={tr('home.description')} lang={locale} siteName={env.PUBLIC_SITE_NAME}>
   <PageSEO
     slot="head"
     title={tr('home.title')}
     description={tr('home.description')}
     ogImage={new URL('/og/home.png', Astro.site).href}
   />
-  <Fragment slot="head">
-    <WebSiteSchema name="Astro v6 Starter" />
-    <OrganizationSchema name="Astro v6 Starter" />
-  </Fragment>
 
   <Navbar slot="header" siteName="Astro v6" links={links}>
     <a href="/de" class="text-xs font-medium text-text-secondary hover:text-text no-underline">DE</a>

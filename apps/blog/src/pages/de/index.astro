@@ -6,6 +6,7 @@ import ThemeToggle from '@astro-v6/shared/components/ThemeToggle.svelte';
 import BaseLayout from '@astro-v6/shared/layouts/BaseLayout.astro';
 import PageSEO from '@astro-v6/shared/seo/PageSEO.astro';
 import { localePath } from '@astro-v6/shared/utils/i18n';
+import { env } from '@/env';
 import { t } from '@/i18n';
 import { type CollectionEntry, getCollection } from 'astro:content';
 import '@/styles/app.css';
@@ -22,7 +23,7 @@ const posts = (await getCollection('blog'))
 const links = [{ href: localePath('/', locale), label: tr('nav.home') }];
 ---
 
-<BaseLayout title={tr('home.title')} description={tr('home.description')} lang={locale}>
+<BaseLayout title={tr('home.title')} description={tr('home.description')} lang={locale} siteName={env.PUBLIC_SITE_NAME}>
   <PageSEO
     slot="head"
     title={tr('home.title')}
