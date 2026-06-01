@@ -17,7 +17,7 @@ catalog:
   "@astrojs/rss": ^4.0.18
   "@astrojs/svelte": ^8.1.2
   "@axe-core/playwright": ^4.11.3
-  "@casoon/astro-post-audit": ^0.4.0
+  "@casoon/astro-post-audit": ^0.4.2
   "@casoon/astro-structured-data": ^1.2.0
   "@casoon/astro-site-files": ^0.4.1
   "@casoon/astro-speed-measure": ^0.2.0
@@ -38,7 +38,7 @@ catalog:
   rehype-slug: ^6.0.0
   remark-gfm: ^4.0.1
   unist-util-visit: ^5.1.0
-  tsx: ^4.22.3
+  tsx: ^4.22.4
   typescript: ^6.0.3
   zod: ^4.4.3
   clsx: ^2.1.1
@@ -53,7 +53,7 @@ catalog:
   # Formatting & Linting (Biome only - no more ESLint/Prettier hybrid)
   "@biomejs/biome": ^2.4.16
   husky: ^9.1.7
-  lint-staged: ^17.0.6
+  lint-staged: ^17.0.7
 
   # Fonts (reduced set)
   "@fontsource/inter": ^5.2.8
