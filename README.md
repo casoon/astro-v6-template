@@ -65,7 +65,8 @@ This template succeeds [astro-v5-template](https://github.com/casoon/astro-v5-te
 - **pnpm Workspaces** — Monorepo with catalog for centralized dependency management
 - **Dark Mode** — System preference + manual toggle
 - **Site Files** — [`@casoon/astro-site-files`](https://github.com/casoon/astro-site-files) generates `robots.txt`, `sitemap.xml`, `llms.txt`, `security.txt` and `humans.txt` at build time
-- **SEO** — robots.txt, canonical URLs, meta descriptions, JSON-LD
+- **Structured Data** — [`@casoon/astro-structured-data`](https://github.com/casoon/astro-structured-data) generates JSON-LD via typed Astro components (`ArticleSchema`, `WebSiteSchema`, `FAQSchema`, …)
+- **SEO** — robots.txt, canonical URLs, meta descriptions, Open Graph
 - **WCAG 2.1 AA** — Two-layer accessibility: axe-core runtime checks + static HTML audit
 - **TypeScript Strict** — Fully typed throughout
 
@@ -159,7 +160,7 @@ Use `apps/starter` or `apps/blog` as the starting point, depending on whether th
 2. Set the package name to `@astro-v6/<name>` and add scripts for `dev`, `build`, `preview`, `type-check`, `clean` and `deploy`.
 3. Import shared styles from `@astro-v6/shared/styles/global.css` in the app layout, and import shared components, layouts, SEO helpers and utilities via `@astro-v6/shared/*`.
 4. Copy the app-level `tsconfig.json` path aliases so `@/*` points to local `src/*` and `@astro-v6/shared/*` points to `../../shared/src/*`.
-5. Configure `astro.config.mjs` with the same core integrations: Tailwind, Svelte, `@casoon/astro-site-files`, `@casoon/astro-post-audit` and `@casoon/astro-speed-measure`.
+5. Configure `astro.config.mjs` with the same core integrations: Tailwind, Svelte, `@casoon/astro-site-files`, `@casoon/astro-structured-data`, `@casoon/astro-post-audit` and `@casoon/astro-speed-measure`.
 6. Choose a unique dev port if the app should run alongside the existing apps.
 7. Add root scripts such as `dev:<name>`, `build:<name>` and `preview:<name>` when the app should be addressable from the workspace root.
 8. Add an optional Playwright project in `playwright.config.ts` plus tests under `e2e/<name>/` when the app needs CI browser coverage.
@@ -171,7 +172,7 @@ All shared code lives in `shared/`:
 - **Styles** — Design tokens (OKLCH), global CSS, Tailwind theme
 - **Components** — `Navbar.astro`, `ThemeToggle.svelte`, `TableOfContents.svelte`, `ReadingProgress.svelte`
 - **Layouts** — `BaseLayout.astro` (HTML base with skip link)
-- **SEO** — `PageSEO.astro` (meta tags, Open Graph, JSON-LD)
+- **SEO** — `PageSEO.astro` (meta tags, Open Graph, JSON-LD via `@casoon/astro-structured-data`)
 - **Utilities** — `env.ts`, `api.ts`, `cn.ts`, `i18n.ts`, `og.ts`
 
 ## i18n
@@ -270,6 +271,33 @@ postAudit({
 ```
 
 Checks include canonical self-references, Open Graph image presence, skip navigation link, fragment link integrity, JSON-LD validity and duplicate title/description detection — on top of everything the `standard` preset covers. Use `failOn: 'warnings'` for stricter CI enforcement.
+
+## Structured Data (JSON-LD)
+
+Both apps use [`@casoon/astro-structured-data`](https://github.com/casoon/astro-structured-data) to generate JSON-LD markup via typed Astro components. The integration is registered in `astro.config.mjs` and provides a virtual config module consumed by the components at build time.
+
+`PageSEO.astro` in `shared/` selects the right schema automatically:
+
+- **Article pages** (`ogType="article"`) — renders `<ArticleSchema>` with headline, author, dates, image and publisher
+- **All other pages** — renders `<Schema>` with `@type: "WebPage"`, name, description and canonical URL
+
+Additional schema components are available for FAQs, products, local businesses, events, breadcrumbs and more:
+
+```astro
+---
+import { ArticleSchema, FAQSchema, BreadcrumbSchema } from '@casoon/astro-structured-data/components';
+---
+
+<ArticleSchema
+  title="My Post"
+  description="..."
+  datePublished="2026-01-01"
+  authorName="Author"
+  imageUrl="/og/post.png"
+/>
+```
+
+The integration also adds a **Structured Data validator** to Astro's dev toolbar for real-time inspection. JSON-LD validity is verified at build time by `@casoon/astro-post-audit` (`structured_data: { check_json_ld: true }`).
 
 ## Site Files
 

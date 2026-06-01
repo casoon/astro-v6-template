@@ -1,4 +1,6 @@
 ---
+import { ArticleSchema, Schema } from '@casoon/astro-structured-data/components';
+
 export interface Props {
   title: string;
   description: string;
@@ -31,26 +33,7 @@ const {
 
 const resolvedCanonical = canonicalUrl || Astro.url.href;
 
-const jsonLd =
-  ogType === 'article'
-    ? {
-        '@context': 'https://schema.org',
-        '@type': 'Article',
-        headline: title,
-        description,
-        url: resolvedCanonical,
-        ...(ogImage && { image: ogImage }),
-        ...(articleAuthor && { author: { '@type': 'Person', name: articleAuthor } }),
-        ...(articleDate && { datePublished: articleDate.toISOString() }),
-        ...(articleDate && { dateModified: (articleModified ?? articleDate).toISOString() }),
-      }
-    : {
-        '@context': 'https://schema.org',
-        '@type': 'WebPage',
-        name: title,
-        description,
-        url: resolvedCanonical,
-      };
+const useArticleSchema = ogType === 'article' && !!articleDate && !!ogImage;
 ---
 
 {robots ? <meta name="robots" content={robots} /> : noIndex && <meta name="robots" content="noindex, nofollow" />}
@@ -70,7 +53,15 @@ const jsonLd =
 {ogImage && <meta name="twitter:image" content={ogImage} />}
 
 <!-- JSON-LD -->
-<script
-  type="application/ld+json"
-  set:html={JSON.stringify(jsonLd)}
-/>
+{useArticleSchema ? (
+  <ArticleSchema
+    title={title}
+    description={description}
+    datePublished={articleDate!.toISOString()}
+    dateModified={articleModified?.toISOString()}
+    authorName={articleAuthor ?? 'Unknown'}
+    imageUrl={ogImage!}
+  />
+) : (
+  <Schema item={{ '@type': 'WebPage', name: title, description, url: resolvedCanonical }} />
+)}

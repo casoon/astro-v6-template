@@ -3,6 +3,7 @@ import svelte from '@astrojs/svelte';
 import postAudit from '@casoon/astro-post-audit';
 import siteFiles from '@casoon/astro-site-files';
 import speedMeasure from '@casoon/astro-speed-measure';
+import structuredData from '@casoon/astro-structured-data';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
 import { env } from './src/env.ts';
@@ -58,6 +59,7 @@ export default defineConfig({
         ],
       },
     }),
+    structuredData(),
     speedMeasure(),
     postAudit({
       preset: 'standard',

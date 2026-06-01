@@ -17,6 +17,7 @@
     "@astrojs/cloudflare": "catalog:",
     "@astrojs/svelte": "catalog:",
     "@casoon/astro-site-files": "catalog:",
+    "@casoon/astro-structured-data": "catalog:",
     "@casoon/astro-speed-measure": "catalog:",
     "@fontsource/inter": "catalog:",
     "@tailwindcss/vite": "catalog:",

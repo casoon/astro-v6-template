@@ -8,6 +8,7 @@ import BaseLayout from '@astro-v6/shared/layouts/BaseLayout.astro';
 import PageSEO from '@astro-v6/shared/seo/PageSEO.astro';
 import type { Locale } from '@astro-v6/shared/utils/i18n';
 import { localePath, switchLocalePath } from '@astro-v6/shared/utils/i18n';
+import type { MarkdownHeading } from 'astro';
 import { t } from '@/i18n';
 import type { BlogPost } from '@/utils/blog-posts';
 import { render } from 'astro:content';
@@ -30,7 +31,7 @@ const alternateHref = switchLocalePath(Astro.url.pathname, isGerman ? 'en' : 'de
 const alternateLabel = isGerman ? 'EN' : 'DE';
 const dateLocale = isGerman ? 'de-DE' : 'en-US';
 const links = [{ href: localePath('/', locale), label: tr('nav.home') }];
-const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const tocHeadings = headings.filter((h: MarkdownHeading) => h.depth === 2 || h.depth === 3);
 ---
 
 <BaseLayout title={title} description={description} lang={locale}>

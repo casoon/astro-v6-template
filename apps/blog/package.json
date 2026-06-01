@@ -19,6 +19,7 @@
     "@astrojs/svelte": "catalog:",
     "@astrojs/rss": "catalog:",
     "@casoon/astro-site-files": "catalog:",
+    "@casoon/astro-structured-data": "catalog:",
     "@casoon/astro-speed-measure": "catalog:",
     "gray-matter": "catalog:",
     "rehype-slug": "catalog:",
