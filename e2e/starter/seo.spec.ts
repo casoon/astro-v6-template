@@ -33,12 +33,16 @@ test.describe('Starter – SEO & OG', () => {
 
   test('JSON-LD structured data is present', async ({ page }) => {
     await page.goto('/');
-    const jsonLd = page.locator('script[type="application/ld+json"]');
-    const content = await jsonLd.textContent();
-    expect(content).toBeTruthy();
-    const data = JSON.parse(content ?? '{}');
-    expect(data['@type']).toBe('WebPage');
-    expect(data.name).toContain('Astro v6 Starter');
+    const scripts = page.locator('script[type="application/ld+json"]');
+    const all = await scripts.all();
+    const parsed = await Promise.all(
+      all.map((s) => s.textContent().then((t) => JSON.parse(t ?? '{}')))
+    );
+    const webPage = parsed.find((d) => d['@type'] === 'WebPage');
+    expect(webPage).toBeTruthy();
+    expect(webPage.name).toContain('Astro v6 Starter');
+    const webSite = parsed.find((d) => d['@type'] === 'WebSite');
+    expect(webSite).toBeTruthy();
   });
 
   test('robots.txt is accessible and contains Sitemap', async ({ request }) => {
