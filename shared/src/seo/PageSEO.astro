@@ -1,5 +1,5 @@
 ---
-import { ArticleSchema, Schema } from '@casoon/astro-structured-data/components';
+import { ArticleSchema, WebPageSchema } from '@casoon/astro-structured-data/components';
 
 export interface Props {
   title: string;
@@ -45,5 +45,5 @@ const useArticleSchema = ogType === 'article' && !!articleDate && !!ogImage;
     imageUrl={ogImage!}
   />
 ) : (
-  <Schema item={{ '@type': 'WebPage', name: title, description, url: resolvedCanonical, ...(ogImage && { image: ogImage }) }} />
+  <WebPageSchema title={title} description={description} url={resolvedCanonical} image={ogImage} />
 )}
