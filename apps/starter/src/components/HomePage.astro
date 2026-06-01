@@ -7,6 +7,7 @@ import BaseLayout from '@astro-v6/shared/layouts/BaseLayout.astro';
 import PageSEO from '@astro-v6/shared/seo/PageSEO.astro';
 import type { Locale } from '@astro-v6/shared/utils/i18n';
 import { localePath } from '@astro-v6/shared/utils/i18n';
+import { OrganizationSchema, WebSiteSchema } from '@casoon/astro-structured-data/components';
 import { t } from '@/i18n';
 
 interface Props {
@@ -34,6 +35,12 @@ const alternateLabel = isGerman ? 'EN' : 'DE';
     description={tr('home.description')}
     ogImage={new URL(ogImage, Astro.site).href}
   />
+  {!isGerman && (
+    <Fragment slot="head">
+      <WebSiteSchema name="Astro v6 Starter" />
+      <OrganizationSchema name="Astro v6 Starter" />
+    </Fragment>
+  )}
 
   <Navbar slot="header" siteName="Astro v6" links={links}>
     <a href={alternateHref} class="text-xs font-medium text-text-secondary hover:text-text no-underline">{alternateLabel}</a>

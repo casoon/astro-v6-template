@@ -8,6 +8,7 @@ import BaseLayout from '@astro-v6/shared/layouts/BaseLayout.astro';
 import PageSEO from '@astro-v6/shared/seo/PageSEO.astro';
 import type { Locale } from '@astro-v6/shared/utils/i18n';
 import { localePath, switchLocalePath } from '@astro-v6/shared/utils/i18n';
+import { AutoBreadcrumbSchema } from '@casoon/astro-structured-data/components';
 import type { MarkdownHeading } from 'astro';
 import { t } from '@/i18n';
 import type { BlogPost } from '@/utils/blog-posts';
@@ -45,6 +46,7 @@ const tocHeadings = headings.filter((h: MarkdownHeading) => h.depth === 2 || h.d
     articleDate={post.data.date}
     articleModified={post.data.lastmod}
   />
+  <AutoBreadcrumbSchema slot="head" homeLabel="Home" labels={{ blog: 'Blog' }} />
 
   <Navbar slot="header" siteName="Astro v6 Blog" links={links}>
     <a href={alternateHref} class="text-xs font-medium text-text-secondary hover:text-text no-underline">{alternateLabel}</a>
