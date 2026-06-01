@@ -1,5 +1,4 @@
 ---
-import { OrganizationSchema, WebSiteSchema } from '@casoon/astro-structured-data/components';
 import { ClientRouter } from 'astro:transitions';
 
 export interface Props {
@@ -10,6 +9,24 @@ export interface Props {
 }
 
 const { title, description = '', lang = 'en', siteName } = Astro.props;
+
+const siteUrl = Astro.site?.href ?? Astro.url.origin + '/';
+const websiteJsonLd = siteName
+  ? JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: siteName,
+      url: siteUrl,
+    })
+  : null;
+const orgJsonLd = siteName
+  ? JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: siteName,
+      url: siteUrl,
+    })
+  : null;
 ---
 
 <!doctype html>
@@ -52,8 +69,8 @@ const { title, description = '', lang = 'en', siteName } = Astro.props;
       document.addEventListener('astro:after-swap', window.__applyThemeHandler);
     </script>
     <slot name="head" />
-    {siteName && <WebSiteSchema name={siteName} />}
-    {siteName && <OrganizationSchema name={siteName} />}
+    {websiteJsonLd && <script type="application/ld+json" set:html={websiteJsonLd} />}
+    {orgJsonLd && <script type="application/ld+json" set:html={orgJsonLd} />}
   </head>
   <body>
     <a href="#main" class="skip-link">Skip to content</a>
