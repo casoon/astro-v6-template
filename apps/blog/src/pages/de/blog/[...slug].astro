@@ -5,7 +5,6 @@ import TableOfContents from '@astro-v6/shared/components/TableOfContents.svelte'
 import Tag from '@astro-v6/shared/components/Tag.astro';
 import ThemeToggle from '@astro-v6/shared/components/ThemeToggle.svelte';
 import BaseLayout from '@astro-v6/shared/layouts/BaseLayout.astro';
-import PageSEO from '@astro-v6/shared/seo/PageSEO.astro';
 import { localePath, switchLocalePath } from '@astro-v6/shared/utils/i18n';
 import { AutoBreadcrumbSchema } from '@casoon/astro-structured-data/components';
 import type { MarkdownHeading } from 'astro';
@@ -29,17 +28,7 @@ const { Content, headings } = await render(post);
 const tocHeadings = headings.filter((h: MarkdownHeading) => h.depth === 2 || h.depth === 3);
 ---
 
-<BaseLayout title={title} description={description} lang={locale} siteName={env.PUBLIC_SITE_NAME}>
-  <PageSEO
-    slot="head"
-    title={`${title} - Astro v6 Blog`}
-    description={description}
-    ogType="article"
-    ogImage={new URL(`/og/blog/${post.id}.png`, Astro.site).href}
-    articleAuthor={post.data.author}
-    articleDate={post.data.date}
-    articleModified={post.data.lastmod}
-  />
+<BaseLayout title={`${title} - Astro v6 Blog`} description={description} lang={locale} siteName={env.PUBLIC_SITE_NAME} ogImage={new URL(`/og/blog/${post.id}.png`, Astro.site).href} articleAuthor={post.data.author} articleDate={post.data.date} articleModified={post.data.lastmod}>
   <AutoBreadcrumbSchema slot="head" homeLabel="Start" labels={{ de: '', blog: 'Blog' }} />
 
   <Navbar slot="header" siteName="Astro v6 Blog" links={links}>

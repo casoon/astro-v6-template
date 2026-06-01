@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '@astro-v6/shared/layouts/BaseLayout.astro';
-import PageSEO from '@astro-v6/shared/seo/PageSEO.astro';
 import { t } from '@/i18n';
 import '@/styles/app.css';
 
@@ -8,13 +7,7 @@ const locale = 'en';
 const tr = t(locale);
 ---
 
-<BaseLayout title={tr('404.title')} lang={locale}>
-  <PageSEO
-    slot="head"
-    title={tr('404.title')}
-    description={tr('404.text')}
-    robots="noindex, nofollow"
-  />
+<BaseLayout title={tr('404.title')} description={tr('404.text')} lang={locale} robots="noindex, nofollow">
 
   <a
     href="#main-content"
