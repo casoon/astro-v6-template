@@ -41,9 +41,7 @@ export default defineConfig({
   },
 
   integrations: [
-    svelte({
-      compilerOptions: { runes: true },
-    }),
+    svelte(),
     mdx({
       remarkPlugins: [remarkGfm],
       rehypePlugins: [rehypeSlug, rehypeCodeLanguage, rehypeCheckboxLabel],
@@ -75,6 +73,7 @@ export default defineConfig({
         },
       },
       robots: { preset: 'seoOnly' },
+      security: { contact: 'mailto:info@casoon.de' },
       audit: {
         disable: ['sitemap/duplicate-urls'],
       },
@@ -98,7 +97,12 @@ export default defineConfig({
         ],
       },
     }),
-    structuredData({ generateMeta: true, siteName: env.PUBLIC_SITE_NAME }),
+    structuredData({
+      generateMeta: true,
+      siteName: env.PUBLIC_SITE_NAME,
+      locale: 'en_US',
+      defaultArticlePublisher: { name: env.PUBLIC_SITE_NAME },
+    }),
     speedMeasure(),
     postAudit({
       preset: 'standard',

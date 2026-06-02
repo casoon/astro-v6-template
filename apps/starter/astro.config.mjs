@@ -24,9 +24,7 @@ export default defineConfig({
   },
 
   integrations: [
-    svelte({
-      compilerOptions: { runes: true },
-    }),
+    svelte(),
     siteFiles({
       sitemap: {
         i18n: {
@@ -39,6 +37,7 @@ export default defineConfig({
         },
       },
       robots: { preset: 'seoOnly' },
+      security: { contact: 'mailto:info@casoon.de' },
       llms: {
         title: env.PUBLIC_SITE_NAME,
         description: 'Astro v6 starter with Tailwind v4, Svelte 5 and Cloudflare.',
@@ -59,14 +58,25 @@ export default defineConfig({
         ],
       },
     }),
-    structuredData({ generateMeta: true, siteName: env.PUBLIC_SITE_NAME }),
+    structuredData({ generateMeta: true, siteName: env.PUBLIC_SITE_NAME, locale: 'en_US' }),
     speedMeasure(),
     postAudit({
       preset: 'standard',
       failOn: 'errors',
       progress: 'verbose',
       hints: { sourceFiles: true },
-      rules: { filters: { exclude: ['404.html'] } },
+      rules: {
+        filters: { exclude: ['404.html'] },
+        canonical: { self_reference: true },
+        opengraph: { require_og_image: true },
+        a11y: { require_skip_link: true },
+        structured_data: { check_json_ld: true },
+        content_quality: {
+          detect_duplicate_titles: true,
+          detect_duplicate_descriptions: true,
+        },
+        links: { check_fragments: true },
+      },
     }),
   ],
 
