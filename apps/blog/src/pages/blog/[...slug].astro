@@ -59,7 +59,7 @@ const tocHeadings = headings.filter((h: MarkdownHeading) => h.depth === 2 || h.d
           )}
         </header>
 
-        <div class="post-content">
+        <div class="post-content prose prose-neutral dark:prose-invert max-w-none">
           <Content />
         </div>
 
@@ -84,61 +84,20 @@ const tocHeadings = headings.filter((h: MarkdownHeading) => h.depth === 2 || h.d
 </BaseLayout>
 
 <style>
-  /* MDX content requires :global() scoped styles. */
-  .post-content {
-    line-height: 1.8;
-  }
-
-  .post-content :global(h2) {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-top: var(--space-2xl);
-    margin-bottom: var(--space-md);
-  }
-
-  .post-content :global(h3) {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-top: var(--space-xl);
-    margin-bottom: var(--space-sm);
-  }
-
-  .post-content :global(p) {
-    margin-bottom: var(--space-md);
-  }
-
-  .post-content :global(ul),
-  .post-content :global(ol) {
-    padding-left: var(--space-lg);
-    margin-bottom: var(--space-md);
-  }
-
-  .post-content :global(li) {
-    margin-bottom: var(--space-xs);
-  }
-
-  .post-content :global(code) {
+  /* Tailwind Typography customizations using project design tokens */
+  .post-content :global(code:not(pre code)) {
     font-family: var(--font-mono);
-    font-size: 0.875em;
-    padding: 0.125em 0.375em;
     background: var(--color-bg-secondary);
     border-radius: var(--radius-sm);
   }
 
+  .post-content :global(code::before),
+  .post-content :global(code::after) {
+    content: none !important;
+  }
+
   .post-content :global(pre) {
-    padding: var(--space-lg);
-    border-radius: var(--radius-lg);
     background: var(--color-neutral-900) !important;
-    overflow-x: auto;
-    margin-bottom: var(--space-md);
-  }
-
-  .post-content :global(pre code) {
-    padding: 0;
-    background: transparent;
-  }
-
-  .post-content :global(strong) {
-    font-weight: 700;
+    border-radius: var(--radius-lg);
   }
 </style>

@@ -12,3 +12,4 @@
 @source "../../../../shared/src";
 
 @plugin "tailwindcss-animate";
+@plugin "@tailwindcss/typography";

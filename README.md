@@ -58,6 +58,7 @@ This template succeeds [astro-v5-template](https://github.com/casoon/astro-v5-te
 - **CSP** — Content Security Policy with SHA-256 nonces
 - **Build Metrics** — [`@casoon/astro-speed-measure`](https://github.com/casoon/astro-speed-measure) for build performance tracking
 - **Post-Build Audit** — [`@casoon/astro-post-audit`](https://github.com/casoon/astro-post-audit) for SEO, link and WCAG checks after every build
+- **Code Analysis** — [fallow](https://fallow.tools) for dead code, complexity hotspots and duplication detection
 - **Secret Scanning** — [`@casoon/nosecrets`](https://github.com/casoon/nosecrets) in pre-commit plus manual workspace scans
 - **Playwright** — E2E tests for both apps with axe-core a11y scanning
 - **Biome** — Single tool for linting + formatting (replaces ESLint + Prettier)
@@ -125,6 +126,9 @@ pnpm dev:blog
 | `pnpm test:e2e:starter` | E2E tests for starter only |
 | `pnpm test:e2e:blog` | E2E tests for blog only |
 | `pnpm type-check` | TypeScript check |
+| `pnpm fallow:dead` | Detect unused files, exports and dependencies |
+| `pnpm fallow:health` | Complexity score, hotspots and refactor targets |
+| `pnpm fallow:audit` | Combined dead-code + complexity + duplication audit |
 | `pnpm clean` | Remove build artifacts + node_modules |
 
 ## Apps
@@ -214,6 +218,23 @@ pnpm test:e2e:blog
 ```
 
 Tests covering navigation, i18n, SEO/OG meta tags, contact form, theme toggle, RSS, accessibility (axe-core WCAG 2.1 AA), robots.txt and sitemap.
+
+## Code Analysis
+
+[fallow](https://fallow.tools) is included as a dev dependency for static analysis of the TypeScript/JavaScript codebase.
+
+```bash
+# Detect unused files, exports, types and dependencies
+pnpm fallow:dead
+
+# Complexity score with hotspots and refactor targets
+pnpm fallow:health
+
+# Combined audit: dead code + complexity + duplication
+pnpm fallow:audit
+```
+
+fallow understands the monorepo structure and resolves cross-workspace imports correctly. It also integrates as an MCP server for AI-assisted analysis directly in your editor — see the [fallow MCP docs](https://fallow.tools/mcp) for setup.
 
 ## Secret Scanning
 

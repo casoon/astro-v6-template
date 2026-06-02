@@ -1,6 +1,6 @@
 {
   "name": "astro-v6-workspace",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "private": true,
   "description": "Astro v6 monorepo template with pnpm workspaces, Tailwind v4, Svelte 5, and Biome",
   "author": "casoon",
@@ -39,6 +39,9 @@
     "deploy": "pnpm deploy:starter && pnpm deploy:blog",
     "deploy:starter": "pnpm --filter @astro-v6/starter run deploy",
     "deploy:blog": "pnpm --filter @astro-v6/blog run deploy",
+    "fallow:audit": "fallow audit",
+    "fallow:health": "fallow health --score --hotspots --targets",
+    "fallow:dead": "fallow dead-code",
     "secrets:scan": "pnpm exec nosecrets scan .",
     "secrets:scan:staged": "pnpm exec nosecrets scan --staged",
     "clean": "pnpm -r clean && rm -rf node_modules",
@@ -67,6 +70,7 @@
     "@biomejs/biome": "catalog:",
     "@casoon/nosecrets": "^0.3.7",
     "@playwright/test": "^1.60.0",
+    "fallow": "catalog:",
     "husky": "catalog:",
     "lint-staged": "catalog:",
     "sharp": "catalog:"

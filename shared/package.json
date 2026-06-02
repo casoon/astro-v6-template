@@ -16,6 +16,7 @@
     "@casoon/astro-structured-data": "catalog:",
     "@resvg/resvg-js": "catalog:",
     "clsx": "catalog:",
+    "lucide-svelte": "catalog:",
     "satori": "catalog:",
     "tailwind-merge": "catalog:",
     "zod": "catalog:"
