@@ -48,7 +48,7 @@ catalog:
   sharp: ^0.34.5
 
   # Deployment
-  wrangler: ^4.95.0
+  wrangler: ^4.96.0
 
   # Formatting & Linting (Biome only - no more ESLint/Prettier hybrid)
   "@biomejs/biome": ^2.4.16
