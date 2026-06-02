@@ -37,7 +37,7 @@ export default defineConfig({
         },
       },
       robots: { preset: 'seoOnly' },
-      security: { contact: 'mailto:info@casoon.de' },
+      security: { contact: 'mailto:security@example.com' },
       llms: {
         title: env.PUBLIC_SITE_NAME,
         description: 'Astro v6 starter with Tailwind v4, Svelte 5 and Cloudflare.',

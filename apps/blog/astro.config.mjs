@@ -73,7 +73,7 @@ export default defineConfig({
         },
       },
       robots: { preset: 'seoOnly' },
-      security: { contact: 'mailto:info@casoon.de' },
+      security: { contact: 'mailto:security@example.com' },
       audit: {
         disable: ['sitemap/duplicate-urls'],
       },
