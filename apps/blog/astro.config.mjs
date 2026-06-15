@@ -10,8 +10,6 @@ import { defineConfig } from 'astro/config';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
 import { env } from './src/env.ts';
-import { rehypeCheckboxLabel } from './src/plugins/rehype-checkbox-label.js';
-import { rehypeCodeLanguage } from './src/plugins/rehype-code-language.js';
 import { getBlogSitemapEntries } from './src/utils/blog-rss.js';
 
 /** Shiki transformer: reads title="..." from fence meta and sets data-title on <pre> */
@@ -44,7 +42,7 @@ export default defineConfig({
     svelte(),
     mdx({
       remarkPlugins: [remarkGfm],
-      rehypePlugins: [rehypeSlug, rehypeCodeLanguage, rehypeCheckboxLabel],
+      rehypePlugins: [rehypeSlug],
       shikiConfig: {
         wrap: true,
         transformers: [codeBlockTitleTransformer],

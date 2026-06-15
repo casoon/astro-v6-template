@@ -23,9 +23,16 @@ e2e/
 - Apps only import from `@astro-v6/shared`
 - NO cross-imports between apps/
 
+## Dependency Maintenance
+
+- Run `pnpm outdated --recursive` to find stale packages
+- Update catalog versions in `pnpm-workspace.yaml` — all apps inherit from there
+- After updates: `pnpm install && pnpm type-check && biome check .`
+- **Icons**: use `@lucide/svelte` (not the deprecated `lucide-svelte`)
+
 ## Tech Stack
 
-- **Astro v6** (Beta) - Vite Environment API, Live Collections, CSP
+- **Astro v6** (stable) - Vite Environment API, Live Collections, CSP
 - **Node >= 22.12.0** - Required for Astro v6
 - **Tailwind v4** - CSS-first, Vite plugin, OKLCH
 - **Svelte 5** - Runes ($state, $derived) for reactive islands
@@ -66,6 +73,7 @@ See `accessibility-audit` skill. Automated testing via `@axe-core/playwright` in
 - CSS custom properties for design tokens
 - OKLCH colors for consistent color rendering
 - Scoped styles in Astro/Svelte only when necessary
+- Icons: `@lucide/svelte` (not the deprecated `lucide-svelte`)
 
 ### Biome (no ESLint/Prettier)
 - `biome check .` for lint + format

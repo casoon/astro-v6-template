@@ -457,6 +457,29 @@ This template includes a [Claude Code](https://docs.anthropic.com/en/docs/claude
 
 For the full set of reusable Claude Code skills (Astro, Tailwind, Svelte, SEO, Playwright, and more), see [casoon/ai-agent-config](https://github.com/casoon/ai-agent-config).
 
+### Installing skills from Anthropic
+
+[anthropics/skills](https://github.com/anthropics/skills) is the official skill repository with `frontend-design`, `mcp-builder`, `skill-creator`, and Office document skills. Install individual skills globally (available in every project):
+
+```bash
+git clone https://github.com/anthropics/skills.git /tmp/anthropic-skills
+cp -r /tmp/anthropic-skills/skills/skill-creator ~/.claude/skills/
+cp -r /tmp/anthropic-skills/skills/mcp-builder ~/.claude/skills/
+cp -r /tmp/anthropic-skills/skills/frontend-design ~/.claude/skills/
+```
+
+Skill lookup order: `~/.claude/skills/` (global) → `.claude/skills/` (project, checked into Git).
+
+### Skills for other AI coding agents
+
+| Agent | Instruction file | Notes |
+|-------|-----------------|-------|
+| **Claude Code** | `CLAUDE.md` + `.claude/skills/` | Skills via description-based triggering |
+| **OpenAI Codex** | `AGENTS.md` in repo root | Read on startup; no skill marketplace, use `AGENTS.md` for project conventions |
+| **Gemini CLI** | `GEMINI.md` in repo root | Same pattern; project-level instructions, no skill system |
+
+The core principles — trigger descriptions, progressive disclosure, runnable scripts alongside instructions — are agent-agnostic. A well-written `AGENTS.md` or `GEMINI.md` follows the same "explain the *why*" approach as a good `SKILL.md`.
+
 ## License
 
 MIT
