@@ -13,6 +13,9 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 <!-- BADGES:END -->
 
+> [!IMPORTANT]
+> **This repository is archived.** Its successor is [astro-v7-template](https://github.com/casoon/astro-v7-template). Please use the v7 template for new projects.
+
 A lean, production-ready **Astro v6** monorepo template with Tailwind v4, Svelte 5 and Biome.
 
 **Live Demos:** [Starter](https://astrov6.casoon.dev) · [Blog](https://astrov6blog.casoon.dev)
